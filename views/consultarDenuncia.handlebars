@@ -1,0 +1,57 @@
+<div class="secao">
+    <h3>Consultar Denúncia</h3>
+    <form action="/denuncia/consultar" method="POST">
+        <div class="form-group">
+            <label for="protocolo">Informe o número de registro da denúncia:</label>
+            <div class="input-group mb-3 input-consulta">
+                <input type="text" class="form-control" type="text" id="protocolo" name="protocolo"
+                    aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="VF0DTCKKE" required>
+                    <button type="submit" class="btn btn-success" id="button-addon2">Consultar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="situcao-denuncia">
+        <p class="paragrafo-status">Entenda a situação da denúncia:</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-1"></div>
+            <h3>Recebida</h3>
+        </div>
+        <p>A denúncia foi registrada e ainda não foi atribuída a um agente.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-2"></div>
+            <h3>Em análise</h3>
+        </div>
+        <p>A denúncia foi atribuída a um agente e está sendo avaliada.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-3"></div>
+            <h3>Em investigação</h3>
+        </div>
+        <p>O agente iniciou a investigação para coletar mais informações e evidências sobre o crime.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-4"></div>
+            <h3>Pendências legais</h3>
+        </div>
+        <p>Há questões jurídicas ou legais em análise que impedem o andamento.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-5"></div>
+            <h3>Em ação de fiscalização</h3>
+        </div>
+        <p>Estão sendo realizadas ações de campo, como vistorias ou autuações.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-6"></div>
+            <h3>Resolvida</h3>
+        </div>
+            <p>O caso foi concluído, seja com a comprovação ou refutação da denúncia.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-7"></div>
+            <h3>Fechada</h3>
+        </div>
+        <p>A denúncia foi encerrada, por falta de provas, prescrição ou outra razão.</p>
+        <div class="situcao-denuncia-status">
+            <div class="situcao-denuncia-status-icon bg-8"></div>
+            <h3>Arquivada</h3>
+        </div>
+            <p>Denúncias que não puderam ser investigadas ou foram invalidadas por alguma razão.</p>
+    </div>
+</div>

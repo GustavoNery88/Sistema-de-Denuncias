@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	outline: none;
+	scroll-behavior: none;
+	border: none;
+}
+
+body {
+	min-height: 100vh;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.secao {
+	min-height: 100vh;
+	padding: 70px 10%;
+}
+
+.cabecalho {
+	padding: 0.9rem 2%;
+	display: flex;
+	width: 100%;
+	transition: .3s;
+	height: 70px;
+	box-shadow: 0px 13px 31px 0px rgba(0, 0, 0, 0.22);;
+}
+
+.offcanvas-end {
+	padding: 1rem 2%;
+}
+
+.offcanvas-end a {
+	font-size: 1rem;
+	color: #1E1E1E;
+}
+
+.offcanvas-header{
+	display: flex;
+	justify-content: end;
+	margin: 0;
+	padding: 0;
+}
+
+.offcanvas-header i {
+	color: #1E1E1E;
+	font-size: 2.4rem;
+}
+
+.offcanvas-header i:hover {
+	color: #1E1E1E;
+	
+}
+
+.botao-fechar-navbar::before {
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
+.cabecalho-logo {
+	cursor: pointer;
+	font-size: 1.5rem;
+	color: #1E1E1E;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.cabecalho-logo:hover {
+	color: #1E1E1E;
+}
+
+.navbar-toggler {
+	border: none;
+}
+
+.cabecalho-botao-icone {
+	font-size: 1.7rem;
+	color: #1E1E1E;
+	cursor: pointer;
+}
+
+.cabecalho-nav {
+	display: flex;
+	gap: 14px;
+}
+
+.cabecalho-nav a, .botao-logout {
+	font-size: 1rem;
+	font-weight: 500;
+	color: #1E1E1E;
+	cursor: pointer;
+}
+
+.cabecalho-nav a:hover {
+	color: #1E1E1E;
+}
+
+.botao-logout:hover {
+	color: #1E1E1E;
+}
+
+.formulario-denuncia-informacao{
+	background-color: #48b36e;
+	margin: 20px 20px 0px 20px;
+	padding: 20px;
+}
+
+.formulario-denuncia-informacao h6{
+	color: white;
+}
+
+.formulario-denuncia-informacao p{
+	color: white;
+}
+
+.formulario-denuncia-container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.formulario-denuncia{
+	padding: 40px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	width: 60%;
+	border-radius: 6px;
+}
+
+.botao-enviar-container{
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.botao-enviar-container button{
+	padding: 5px 60px;
+}
+
+.input-consulta{
+	margin-top: 10px;
+	width: 35%;
+}
+
+.situcao-denuncia{
+	margin-top: 100px;
+}
+
+
+.situcao-denuncia p{
+	margin-bottom: 30px;
+	margin-top: 10px;
+}
+
+.situcao-denuncia-status{
+	display: flex;
+	align-items: center;
+}
+
+.situcao-denuncia-status h3{
+	margin: 0 0 0 10px;
+	font-weight: bold;
+}
+
+
+.situcao-denuncia-status-icon {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+}
+
+.paragrafo-status{
+	font-size: 18px;
+}
+
+.bg-1{
+	background-color: #21CF52;
+}
+
+.bg-2{
+	background-color: #E8E00F;
+}
+
+.bg-3{
+	background-color: #E86B0F;
+}
+
+.bg-4{
+	background-color: #AF2EEC;
+}
+
+.bg-5{
+	background-color: #A19E9E;
+}
+
+.bg-6{
+	background-color: #363CDB;
+}
+
+.bg-7{
+	background-color: #F60F0F;
+}
+
+.bg-8{
+	background-color: #000000;
+}
+.container-denuncia-detalhes{
+	display: flex;
+	justify-content: center;
+}
+
+.denuncia-detalhes{
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+	display: flex;
+	flex-direction: column;
+	padding: 40px;
+	width: 60%;
+	margin-top: 50px;
+	border-radius: 6px;
+	gap: 30px;
+}
+
+.denuncia-detalhes img{
+	width: 40vw;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.denuncia-detalhes label{
+	font-size: 15px;
+}
+
+.denuncia-detalhes-descricao{
+	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+	padding: 10px;
+	border-radius: 6px;
+	height: 20vh;
+	overflow-y: auto;
+}
+
+.denuncia-detalhes-localizacao{
+	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+	padding: 10px;
+	border-radius: 6px;
+	height: 10vh;
+	overflow-y: auto;
+}
+
+.denuncia-detalhes-status{
+	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+	padding: 6px;
+	border-radius: 6px;
+	width: 35%;
+	background-color: #D9D9D9;
+}
+
+
+.denuncia-detalhes-status p{
+	margin-bottom: 0;
+	font-weight: 600;
+}
+
+.denuncia-detalhes-data{
+	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+	padding: 5px;
+	border-radius: 6px;
+	width: 18%;
+}
+
+.denuncia-detalhes-data p{
+	text-align: center;
+	margin-bottom: 0;
+}
+
+.wrapper {
+	flex: 1;
+  }
+  
+  .content {
+	/* Adicione margem inferior igual à altura do rodapé para evitar que o conteúdo fique atrás do rodapé */
+	margin-bottom: 50px; /* Ajuste conforme necessário */
+  }

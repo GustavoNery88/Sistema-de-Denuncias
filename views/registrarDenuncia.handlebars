@@ -1,0 +1,49 @@
+<div class="formulario-denuncia-informacao">
+    <h6>Cadastrar Denúncia</h6>
+    <p>Informe os dados necessários para registrar sua denúncia de forma rápida e segura.</p>
+</div>
+
+<div class="secao formulario-denuncia-container">
+    <form class="formulario-denuncia" action="/denuncia/registrar" method="POST" enctype="multipart/form-data">
+        <h3>Formulario de Denúncia</h3>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">*Titulo</label>
+            <input maxlength="100" for="exampleFormControlInput1" type="text" name="titulo" class="form-control"
+                id="exampleFormControlInput1" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">*Descrição</label>
+            <textarea name="descricao" class="form-control" id="exampleFormControlTextarea1" rows="6"
+                required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">*Email</label>
+            <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                placeholder="name@example.com" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">*Localização</label>
+            <textarea type="text" name="localizacao" class="form-control" id="exampleFormControlTextarea1" rows="6"
+                required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="dataDenuncia" class="form-label">**Data de quando o crime ocorreu ou foi notado</label>
+            <input type="date" name="data" class="form-control" id="dataDenuncia" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Imagem</label>
+            <input class="form-control" type="file" id="formFile" type="file" name="imagem" accept="image/*">
+        </div>
+        
+        <div class="botao-enviar-container">
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
+
+    </form>
+</div>
