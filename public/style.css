@@ -22,6 +22,7 @@ body {
 	padding: 70px 10%;
 }
 
+/* Cabeçalho */
 .cabecalho {
 	padding: 0.9rem 2%;
 	display: flex;
@@ -104,6 +105,26 @@ body {
 	color: #1E1E1E;
 }
 
+
+/* Home Page */
+.fundo-imagem {
+    background-image: url('/img/imagem-home.jpg');
+    background-size: cover; /* Ajusta a imagem para cobrir toda a div */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    width: 100%; /* Largura da div */
+    height: 500px; /* Altura da div */
+    color: white; /* Define a cor do texto */
+}
+
+.fundo-imagem-texto{
+	text-align: center;
+}
+
+
+
+
+/* Formulario de Denúncia */
 .formulario-denuncia-informacao{
 	background-color: #48b36e;
 	margin: 20px 20px 0px 20px;
@@ -275,11 +296,30 @@ body {
 	margin-bottom: 0;
 }
 
+
+
+/* Footer */
 .wrapper {
 	flex: 1;
-  }
+}
   
-  .content {
-	/* Adicione margem inferior igual à altura do rodapé para evitar que o conteúdo fique atrás do rodapé */
-	margin-bottom: 50px; /* Ajuste conforme necessário */
-  }
+.content {
+	margin-bottom: 50px; /
+}
+
+.footer {
+	width: 100%;
+	background-color: #333;
+	color: #fff;
+	padding: 15px;
+	text-align: center;
+	margin-top: auto;
+	/* Mantém o rodapé no final, mesmo quando o conteúdo é pequeno */
+}
+
+.footer p{
+	margin-bottom: 0;
+}
+
+
+
