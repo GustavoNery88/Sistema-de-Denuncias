@@ -12,14 +12,32 @@
 </head>
 
 <body>
-
     {{> _header}}
-    
-    <div class="wrapper">
-        <div class="content">
-            {{{body}}}
+
+    <div>
+        <div class="position-relative">
+            {{#if success_msg}}
+            <div class="alert alert-success">
+                {{success_msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
+
+            {{#if error_msg}}
+            <div class="alert alert-danger">
+                {{error_msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="wrapper">
+            <div class="content">
+                {{{body}}}
+            </div>
         </div>
     </div>
+
 
     {{> _footer}}
 

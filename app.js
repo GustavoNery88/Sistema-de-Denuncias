@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const { create } = require('express-handlebars');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -23,8 +25,26 @@ const hbs = create({
     }
 });
 
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+// Configurações de sessão
+app.use(session({
+    secret: 'seuSegredoAqui', // Defina um segredo forte
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Middleware do connect-flash
+app.use(flash());
+
+// Middleware para passar mensagens flash para as views
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success');
+    res.locals.error_msg = req.flash('error');
+    next();
+});
 
 // Conectar ao MongoDB
 mongoose.connect(process.env.MONGO_URI)

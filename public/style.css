@@ -113,12 +113,21 @@ body {
     background-position: center; /* Centraliza a imagem */
     background-repeat: no-repeat; /* Evita que a imagem se repita */
     width: 100%; /* Largura da div */
-    height: 500px; /* Altura da div */
+    height: 450px; /* Altura da div */
     color: white; /* Define a cor do texto */
+	display: flex;
+	justify-content: center;
 }
 
 .fundo-imagem-texto{
 	text-align: center;
+	width: 35%;
+	margin-top: 80px;
+}
+
+.fundo-imagem-texto h1{
+	font-size: 50px;
+	text-shadow: #000 2px 3px 2px;
 }
 
 
@@ -296,7 +305,18 @@ body {
 	margin-bottom: 0;
 }
 
-
+.alert {
+	display: flex;
+	justify-content: space-between;
+	gap: 30px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1000;
+	opacity: 0;
+	animation: drop-alert 0.5s ease-out forwards;
+}
 
 /* Footer */
 .wrapper {
@@ -321,5 +341,19 @@ body {
 	margin-bottom: 0;
 }
 
+
+@keyframes drop-alert {
+	from {
+	  top: -50px;
+	  /* Inicialmente acima da tela */
+	  opacity: 0;
+	}
+  
+	to {
+	  top: 0;
+	  /* Finalmente na parte superior da tela */
+	  opacity: 1;
+	}
+  }
 
 

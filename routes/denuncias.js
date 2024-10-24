@@ -81,7 +81,8 @@ router.post('/consultar', async (req, res) => {
         if (denuncia) {
             res.render('detalhesDenuncia', { denuncia });
         } else {
-            res.send('Denúncia não encontrada');
+            req.flash('error', 'Denúncia não encontrada');
+            res.redirect('/denuncia/consultar');
         }
     } catch (err) {
         res.status(400).send("Erro na consulta: " + err.message);
