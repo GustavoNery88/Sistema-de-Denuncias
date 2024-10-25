@@ -1,0 +1,20 @@
+.container-cadastro-agente{
+    display: flex;
+    justify-content: center;
+}
+
+.cadastro-agente{
+    width: 40%;
+    height: 46vh;
+    margin-top: 80px;
+}
+
+.cadastro-agente-botao{
+   display: flex;
+   justify-content: center;
+   margin-top: 40px;
+}
+
+.cadastro-agente-botao button{
+    width: 100%;
+}

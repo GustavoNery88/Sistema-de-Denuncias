@@ -22,6 +22,7 @@ body {
 	padding: 70px 10%;
 }
 
+
 /* Cabeçalho */
 .cabecalho {
 	padding: 0.9rem 2%;
@@ -106,7 +107,7 @@ body {
 }
 
 
-/* Home Page */
+/* Home page */
 .fundo-imagem {
     background-image: url('/img/imagem-home.jpg');
     background-size: cover; /* Ajusta a imagem para cobrir toda a div */
@@ -131,9 +132,7 @@ body {
 }
 
 
-
-
-/* Formulario de Denúncia */
+/* Formulario de denúncia */
 .formulario-denuncia-informacao{
 	background-color: #48b36e;
 	margin: 20px 20px 0px 20px;
@@ -171,6 +170,8 @@ body {
 	padding: 5px 60px;
 }
 
+
+/* Tela de consultar denúncia */
 .input-consulta{
 	margin-top: 10px;
 	width: 35%;
@@ -238,6 +239,9 @@ body {
 .bg-8{
 	background-color: #000000;
 }
+
+
+/* Formulario detalhes da denúncia */
 .container-denuncia-detalhes{
 	display: flex;
 	justify-content: center;
@@ -305,6 +309,8 @@ body {
 	margin-bottom: 0;
 }
 
+
+/* Messagem de alerta */
 .alert {
 	display: flex;
 	justify-content: space-between;

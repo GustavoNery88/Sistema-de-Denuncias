@@ -62,6 +62,9 @@ app.use(express.static('public'));
 const denunciaRoutes = require('./routes/denuncias.js');
 app.use('/denuncia', denunciaRoutes); 
 
+const agenteRoutes = require('./routes/agentes.js');
+app.use('/agente', agenteRoutes);
+
 app.get('/', (req, res) => res.render('home'));
 
 // Inicializar servidor

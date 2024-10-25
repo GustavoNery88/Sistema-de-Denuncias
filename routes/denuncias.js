@@ -76,13 +76,14 @@ router.get('/consultar', (req, res) => res.render('consultarDenuncia'));
 // Consultar denúncia por protocolo
 router.post('/consultar', async (req, res) => {
     const { protocolo } = req.body;
+    let codigoMaiusculo = protocolo.toUpperCase();
     try {
-        const denuncia = await Denuncia.findOne({ protocolo });
+         const denuncia = await Denuncia.findOne({ protocolo: codigoMaiusculo });
         if (denuncia) {
             res.render('detalhesDenuncia', { denuncia });
         } else {
             req.flash('error', 'Denúncia não encontrada');
-            res.redirect('/denuncia/consultar');
+            res.redirect('/denuncia/consultar');     
         }
     } catch (err) {
         res.status(400).send("Erro na consulta: " + err.message);
