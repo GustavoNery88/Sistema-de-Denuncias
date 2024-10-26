@@ -1,12 +1,12 @@
 .container-cadastro-agente{
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .cadastro-agente{
     width: 40%;
-    height: 50vh;
-    margin-top: 80px;
+    margin-top: 40px;
 }
 
 .cadastro-agente-botao{
