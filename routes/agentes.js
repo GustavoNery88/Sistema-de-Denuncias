@@ -32,6 +32,11 @@ router.post('/cadastrar', async (req, res) => {
             return res.redirect('/agente/cadastrar');
         }
 
+        else if(cpfFormatado.length != 11){
+            req.flash('error', 'CPF invalido!');
+            return res.redirect('/agente/cadastrar');
+        }
+
         const novoAgente = new Agente({
             nome,
             cpf: cpfFormatado,

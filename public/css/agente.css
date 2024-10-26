@@ -9,12 +9,8 @@
     margin-top: 40px;
 }
 
-.cadastro-agente-botao{
-   display: flex;
-   justify-content: center;
-   margin-top: 40px;
-}
 
 .cadastro-agente-botao button{
     width: 100%;
+    margin-top: 30px;
 }
