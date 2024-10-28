@@ -15,6 +15,7 @@ const upload = multer({
     }
 });
 
+
 // Configuração do Nodemailer para envio de e-mails
 const transporter = nodemailer.createTransport({
     service: 'gmail', // Serviço de e-mail, pode usar Gmail, Outlook, etc.
@@ -25,7 +26,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Página de registro de denúncia
-router.get('/registrar', (req, res) => res.render('registrarDenuncia'));
+router.get('/registrar', (req, res) => res.render('denuncia/registrarDenuncia'));
 
 router.post('/registrar', upload.single('imagem'), async (req, res) => {
     const { titulo, descricao, email, localizacao, data } = req.body;
@@ -62,7 +63,7 @@ router.post('/registrar', upload.single('imagem'), async (req, res) => {
         });
 
         // Exibir o número de protocolo na página de confirmação
-        res.render('protocolo', { protocolo });
+        res.render('denuncia/protocolo', { protocolo });
 
     } catch (err) {
         console.error(err);
@@ -71,7 +72,7 @@ router.post('/registrar', upload.single('imagem'), async (req, res) => {
 });
 
 // Página para consultar denúncia
-router.get('/consultar', (req, res) => res.render('consultarDenuncia'));
+router.get('/consultar', (req, res) => res.render('denuncia/consultarDenuncia'));
 
 // Consultar denúncia por protocolo
 router.post('/consultar', async (req, res) => {
@@ -80,7 +81,7 @@ router.post('/consultar', async (req, res) => {
     try {
          const denuncia = await Denuncia.findOne({ protocolo: codigoMaiusculo });
         if (denuncia) {
-            res.render('detalhesDenuncia', { denuncia });
+            res.render('denuncia/detalhesDenuncia', { denuncia });
         } else {
             req.flash('error', 'Denúncia não encontrada');
             res.redirect('/denuncia/consultar');     
@@ -89,5 +90,7 @@ router.post('/consultar', async (req, res) => {
         res.status(400).send("Erro na consulta: " + err.message);
     }
 });
+
+
 
 module.exports = router;

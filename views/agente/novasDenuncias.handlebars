@@ -1,0 +1,33 @@
+<div class="secao">
+    <h3>Denúncias Novas</h3>
+
+    {{#if denuncias.length}}
+    <div>
+        {{#each denuncias}}
+        <div class="card denuncias-card">
+            <div class="denuncias-card-infomacoes">
+                <div>
+                    <p>{{protocolo}}</p>
+                </div>
+                <div>
+                    <p>{{formatDate this.data}}</p>
+                </div>
+            </div>
+
+            <div class="denuncias-card-botoes">
+                <div>
+                    <a href="/agente/atribuir/{{_id}}" class="btn btn-light">Vincula-se <i class="bi bi-plus-square"></i></a>
+                </div>
+                <div>
+                    <a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    </div>
+
+    {{else}}
+    <p>Nenhuma denúncia nova encontrada.</p>
+    {{/if}}
+</div>

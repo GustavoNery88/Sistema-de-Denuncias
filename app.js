@@ -65,7 +65,7 @@ app.use('/denuncia', denunciaRoutes);
 const agenteRoutes = require('./routes/agentes.js');
 app.use('/agente', agenteRoutes);
 
-app.get('/', (req, res) => res.render('home'));
+app.get('/', (req, res) => res.render('denuncia/home'));
 
 // Inicializar servidor
 const PORT = process.env.PORT || 3000;

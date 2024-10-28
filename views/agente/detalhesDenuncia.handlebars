@@ -1,0 +1,64 @@
+<div class="secao">
+    <h3>Detalhes da Denúncia:</h3>
+
+    <div class="container-denuncia-detalhes">
+        <div class="denuncia-detalhes">
+            {{#if denuncia}}
+            <div>
+                <label>Protocolo:</label>
+                <p><strong>{{denuncia.protocolo}}</strong></p>
+            </div>
+            <div>
+                <label>Título:</label>
+                <h4>{{denuncia.titulo}}</h4>
+            </div>
+            <div>
+                <label>Descrição:</label>
+                <div class="denuncia-detalhes-descricao">
+                    <p>{{denuncia.descricao}}</p>
+                </div>
+            </div>
+
+            <div>
+                <label>Localização do crime:</label>
+                <div class="denuncia-detalhes-localizacao">
+                    <p>{{denuncia.localizacao}}</p>
+                </div>
+            </div>
+
+            <div>
+                <label>Status:</label>
+                <div class="denuncia-detalhes-status">
+                    <p>{{denuncia.status}}</p>
+                </div>
+            </div>
+
+            <div>
+                <label>Data do Ocorrido:</label>
+                <div class="denuncia-detalhes-data">
+                    <p>{{formatDate denuncia.data}}</p>
+                </div>
+            </div>
+
+            {{#if denuncia.imagem}}
+            <div>
+                <label>Imagem:</label>
+                <img src="data:image/png;base64,{{denuncia.imagem}}" alt="Imagem da Denúncia">
+            </div>
+            {{else}}
+            <div>
+                <label>Imagem:</label>
+                <img src="/img/sem-foto.jpg" alt="Imagem da Denúncia">
+            </div>
+            {{/if}}
+
+            {{else}}
+            <p>Denúncia não encontrada.</p>
+            {{/if}}
+
+            <div>
+                <a href="/denuncia/consultar" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
