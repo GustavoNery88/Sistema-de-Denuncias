@@ -1,12 +1,12 @@
 <div class="secao">
     <h3>Consultar Denúncia</h3>
-    <form action="/denuncia/consultar" method="POST">
+    <form id="consultaForm" action="/denuncia/consultar" method="POST">
         <div class="form-group">
             <label for="protocolo">Informe o número de registro da denúncia:</label>
             <div class="input-group mb-3 input-consulta">
                 <input type="text" class="form-control" type="text" id="protocolo" name="protocolo"
                     aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="VF0DTCKKE" required>
-                    <button type="submit" class="btn btn-success" id="button-addon2">Consultar</button>
+                <button type="submit" class="btn btn-success" id="button-addon2">Consultar</button>
             </div>
         </div>
     </form>
@@ -42,7 +42,7 @@
             <div class="situcao-denuncia-status-icon bg-6"></div>
             <h3>Resolvida</h3>
         </div>
-            <p>O caso foi concluído, seja com a comprovação ou refutação da denúncia.</p>
+        <p>O caso foi concluído, seja com a comprovação ou refutação da denúncia.</p>
         <div class="situcao-denuncia-status">
             <div class="situcao-denuncia-status-icon bg-7"></div>
             <h3>Fechada</h3>
@@ -52,6 +52,6 @@
             <div class="situcao-denuncia-status-icon bg-8"></div>
             <h3>Arquivada</h3>
         </div>
-            <p>Denúncias que não puderam ser investigadas ou foram invalidadas por alguma razão.</p>
+        <p>Denúncias que não puderam ser investigadas ou foram invalidadas por alguma razão.</p>
     </div>
 </div>
