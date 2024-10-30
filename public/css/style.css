@@ -18,7 +18,6 @@ body {
 }
 
 .secao {
-	min-height: 100vh;
 	padding: 70px 10%;
 }
 
@@ -133,6 +132,41 @@ body {
 .fundo-imagem-texto h1{
 	font-size: 50px;
 	text-shadow: #000 2px 3px 2px;
+}
+
+.secao-apresentação{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.secao-apresentação-texto{
+	width: 70%;
+}
+
+.secao-apresentação p{
+	text-align: center;
+	color: #666666;
+	font-weight: bold;
+}
+
+.secao-apresentação h5{
+	text-align: center;
+	color: #666666;
+	font-weight: bold;
+}
+
+.secao-passos-texto-cadastro{
+	background-color: #F5F5F5;
+}
+
+.secao-passos-texto p{
+	margin-top: 10px;
+}
+
+.secao-passos-texto span{
+	color: #268E5C;
+	font-weight: bold;
 }
 
 
