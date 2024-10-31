@@ -160,13 +160,26 @@ body {
 	background-color: #F5F5F5;
 }
 
-.secao-passos-texto p{
-	margin-top: 10px;
+.secao-passos-texto h3{
+	margin-bottom: 10px;
 }
 
 .secao-passos-texto span{
 	color: #268E5C;
 	font-weight: bold;
+}
+
+.secao-contato{
+	background-color: #F5F5F5;
+}
+
+.secao-contato h3{
+	margin-bottom: 10px;
+}
+
+.secao-contato-container{
+	display: flex;
+	gap:10px;
 }
 
 
@@ -189,6 +202,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-bottom: 50px;
 }
 
 .formulario-denuncia{
@@ -210,6 +224,10 @@ body {
 
 
 /* Tela de consultar denúncia */
+.container-consulta{
+	margin-bottom: 50px;
+}
+
 .input-consulta{
 	margin-top: 10px;
 	width: 35%;
@@ -280,6 +298,10 @@ body {
 
 
 /* Formulario detalhes da denúncia */
+.secao-denuncia-detalhes{
+	margin-bottom: 50px;
+}
+
 .container-denuncia-detalhes{
 	display: flex;
 	justify-content: center;
@@ -365,10 +387,6 @@ body {
 /* Footer */
 .wrapper {
 	flex: 1;
-}
-  
-.content {
-	margin-bottom: 50px; /
 }
 
 .footer {
