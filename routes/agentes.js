@@ -61,7 +61,7 @@ router.post('/cadastrar', ensureAuthenticatedJWT, async (req, res) => {
 router.get('/novasDenuncias', ensureAuthenticatedJWT, async (req, res) => {
     try {
         const denunciasNovas = await Denuncia.find({ status: 'Recebida' }); // Filtra denúncias pelo status
-        res.render('agente/novasDenuncias', { denuncias: denunciasNovas }); // Renderiza a view com as denúncias
+        res.render('agente/novasDenuncias', { denuncias: denunciasNovas, user: req.user }); // Passa o usuário para a view
     } catch (error) {
         console.error(error);
         req.flash('error', 'Erro ao buscar denúncias.');
@@ -110,7 +110,8 @@ router.get('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
 // Página de Login
 router.get('/login', (req, res) => res.render('agente/login'));
 
-// Rota de Login
+
+// Exemplo na rota de login
 router.post('/login', async (req, res) => {
     const { cpf, senha } = req.body;
 

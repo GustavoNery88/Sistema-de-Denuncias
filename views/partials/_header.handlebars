@@ -11,16 +11,14 @@
                 <i data-bs-dismiss="offcanvas" aria-label="Close" class="botao-fechar-navbar bi bi-x-lg"></i>
             </div>
             <div class="offcanvas-body">
-                 <nav class="cabecalho-nav navbar-nav justify-content-end flex-grow-1 pe-3">   
+                <nav class="cabecalho-nav navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <a class="nav-link" href="/denuncia/registrar" aria-current="page">Cadastrar</a>
+                    <a class="nav-link" href="/denuncia/consultar" aria-current="page">Consultar</a>
                     {{#if isAuthenticated}}
-                       <a class="nav-link" href="/agente/novasDenuncias" aria-current="page">Denúncias Novas</a>
-                       <a class="nav-link" href="/agente/logout" aria-current="page">Sair</a>
+                    <a class="nav-link" href="/agente/novasDenuncias" aria-current="page">Denúncias Novas</a>
+                    <a class="nav-link" href="/agente/logout" aria-current="page">Sair</a>
                     {{else}}
-                        {{#if isHomePage}}
-                           <a class="nav-link" href="/denuncia/registrar" aria-current="page">Cadastrar</a>
-                           <a class="nav-link" href="/denuncia/consultar" aria-current="page">Consultar</a>
-                           <a class="nav-link" href="/agente/login" aria-current="page">Entrar</a>
-                        {{/if}}
+                    <a class="nav-link" href="/agente/login" aria-current="page">Entrar</a>
                     {{/if}}
                 </nav>
             </div>

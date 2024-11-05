@@ -50,15 +50,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Middleware para tornar o usuário disponível globalmente
-app.use((req, res, next) => {
-    res.locals.user = null; // Não vamos usar sessão para usuário
-    next();
-});
 
-app.use((req, res, next) => {
-    res.locals.isAuthenticated = !!req.session.user; // Define isAuthenticated com base na sessão do usuário
-    res.locals.isHomePage = req.path === '/'; // Define isHomePage como true somente se o caminho for a página inicial
+app.use((req, res, next) => { 
+    res.locals.user = null; // Não vamos usar sessão para usuário
+    res.locals.isAuthenticated = req.cookies.token !== undefined; // Verifica se o token está definido
     next();
 });
 
@@ -84,8 +79,7 @@ app.use('/agente', agenteRoutes);
 
 // Rota para a página inicial
 app.get('/', (req, res) => {
-    const isAuthenticated = req.cookies.token !== undefined;
-    res.render('denuncia/home', { isAuthenticated, isHomePage: true });
+    res.render('denuncia/home'); // Não precisa passar isAuthenticated, já está em res.locals
 });
 
 // Inicializar servidor
