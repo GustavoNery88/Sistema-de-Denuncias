@@ -155,7 +155,6 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
     // Remove o cookie do token
     res.clearCookie('token');
-
     req.flash('success', 'Saiu!');
     res.redirect('/agente/login');
 });
