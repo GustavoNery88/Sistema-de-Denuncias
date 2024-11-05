@@ -31,7 +31,7 @@ app.set('view engine', 'handlebars');
 
 // Configurações de sessão
 app.use(session({
-    secret: 'seuSegredoAqui', // Defina um segredo forte
+    secret: 'Sdenucias', // Defina um segredo forte
     resave: false,
     saveUninitialized: true
 }));
@@ -43,6 +43,12 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success');
     res.locals.error_msg = req.flash('error');
+    next();
+});
+
+// Middleware para tornar o usuário disponível globalmente
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
     next();
 });
 
@@ -70,3 +76,5 @@ app.get('/', (req, res) => res.render('denuncia/home'));
 // Inicializar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+

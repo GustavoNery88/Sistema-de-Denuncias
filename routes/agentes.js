@@ -1,13 +1,15 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 const Agente = require('../models/Agente');
 const Denuncia = require('../models/Denuncia');
+const { ensureAuthenticated } = require('../middlewares/authMiddleware');
 
 // Página de cadastro de agente
-router.get('/cadastrar', (req, res) => res.render('agente/cadastrarAgente'));
+router.get('/cadastrar', ensureAuthenticated, (req, res) => res.render('agente/cadastrarAgente'));
 
 // Processa o cadastro do agente
-router.post('/cadastrar', async (req, res) => {
+router.post('/cadastrar', ensureAuthenticated, async (req, res) => {
     const { nome, cpf, email, senha, admin } = req.body;
     const cpfFormatado = cpf.replace(/\D/g, '');
 
@@ -60,7 +62,7 @@ router.post('/cadastrar', async (req, res) => {
 
 
 // Rota para exibir todas as denúncias novas (Recebidas)
-router.get('/novasDenuncias', async (req, res) => {
+router.get('/novasDenuncias', ensureAuthenticated, async (req, res) => {
     try {
         const denunciasNovas = await Denuncia.find({ status: 'Recebida' }); // Filtra denúncias pelo status
         res.render('agente/novasDenuncias', { denuncias: denunciasNovas }); // Renderiza a view com as denúncias
@@ -98,7 +100,7 @@ router.get('/atribuir/:id', async (req, res) => {
     try {
         // Atribui o agente à denúncia atualizando o campo responsável
         await Denuncia.findByIdAndUpdate(denunciaId, { status: 'Em andamento' });
-        
+
         req.flash('success', 'Você se atribuiu a esta denúncia com sucesso.');
         res.redirect('/agente/novasDenuncias'); // Redireciona para a página de novas denúncias
     } catch (error) {
@@ -108,4 +110,53 @@ router.get('/atribuir/:id', async (req, res) => {
     }
 });
 
+
+// Página de Login
+router.get('/login', (req, res) => res.render('agente/login'));
+
+router.post('/login', async (req, res) => {
+    const { cpf, senha } = req.body;
+
+    try {
+        // Busca o agente pelo CPF
+        const agente = await Agente.findOne({ cpf });
+        if (!agente) {
+            req.flash('error', 'CPF não encontrado!');
+            return res.redirect('/agente/login');
+        }
+
+        // Verifica se a senha está correta
+        const isMatch = await bcrypt.compare(senha, agente.senha);
+        if (!isMatch) {
+            req.flash('error', 'Senha incorreta');
+            return res.redirect('/agente/login');
+        }
+
+        // Salva o agente na sessão
+        req.session.user = {
+            id: agente._id,
+            nome: agente.nome,
+            admin: agente.admin
+        };
+
+        req.flash('success', 'Usuário logado com sucesso!');
+        res.redirect('/agente/novasDenuncias');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao processar o login!');
+        res.redirect('/agente/login');
+    }
+});
+
+
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) return console.error(err);
+        res.redirect('/agente/login');
+    });
+    
+});
+
 module.exports = router;
+
+
