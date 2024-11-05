@@ -50,7 +50,7 @@ app.use((req, res, next) => {
     next();
 });
 
-
+// Middleware para tornar o usuário disponível globalmente
 app.use((req, res, next) => { 
     res.locals.user = null; // Não vamos usar sessão para usuário
     res.locals.isAuthenticated = req.cookies.token !== undefined; // Verifica se o token está definido
