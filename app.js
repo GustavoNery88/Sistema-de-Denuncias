@@ -79,7 +79,7 @@ app.use('/agente', agenteRoutes);
 
 // Rota para a página inicial
 app.get('/', (req, res) => {
-    res.render('denuncia/home'); // Não precisa passar isAuthenticated, já está em res.locals
+    res.render('denuncia/home');
 });
 
 // Inicializar servidor
