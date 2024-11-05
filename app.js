@@ -4,6 +4,7 @@ require('dotenv').config();
 const { create } = require('express-handlebars');
 const session = require('express-session');
 const flash = require('connect-flash');
+const cookieParser = require('cookie-parser'); // Adicione esta linha
 
 const app = express();
 
@@ -29,9 +30,12 @@ const hbs = create({
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Configurações de sessão
+// Middleware para manipular cookies
+app.use(cookieParser());
+
+// Configurações de sessão e flash para mensagens
 app.use(session({
-    secret: 'Sdenucias', // Defina um segredo forte
+    secret: 'Sdenucias',
     resave: false,
     saveUninitialized: true
 }));
@@ -48,9 +52,16 @@ app.use((req, res, next) => {
 
 // Middleware para tornar o usuário disponível globalmente
 app.use((req, res, next) => {
-    res.locals.user = req.session.user || null;
+    res.locals.user = null; // Não vamos usar sessão para usuário
     next();
 });
+
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = !!req.session.user; // Define isAuthenticated com base na sessão do usuário
+    res.locals.isHomePage = req.path === '/'; // Define isHomePage como true somente se o caminho for a página inicial
+    next();
+});
+
 
 // Conectar ao MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -71,7 +82,11 @@ app.use('/denuncia', denunciaRoutes);
 const agenteRoutes = require('./routes/agentes.js');
 app.use('/agente', agenteRoutes);
 
-app.get('/', (req, res) => res.render('denuncia/home'));
+// Rota para a página inicial
+app.get('/', (req, res) => {
+    const isAuthenticated = req.cookies.token !== undefined;
+    res.render('denuncia/home', { isAuthenticated, isHomePage: true });
+});
 
 // Inicializar servidor
 const PORT = process.env.PORT || 3000;

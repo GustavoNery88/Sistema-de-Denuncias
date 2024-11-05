@@ -1,21 +1,21 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // Adicione esta linha
 const router = express.Router();
 const Agente = require('../models/Agente');
 const Denuncia = require('../models/Denuncia');
-const { ensureAuthenticated } = require('../middlewares/authMiddleware');
+const { ensureAuthenticatedJWT } = require('../middlewares/authMiddleware'); // Atualize para middleware JWT
+
 
 // Página de cadastro de agente
-router.get('/cadastrar', ensureAuthenticated, (req, res) => res.render('agente/cadastrarAgente'));
+router.get('/cadastrar', ensureAuthenticatedJWT, (req, res) => res.render('agente/cadastrarAgente'));
 
 // Processa o cadastro do agente
-router.post('/cadastrar', ensureAuthenticated, async (req, res) => {
+router.post('/cadastrar', ensureAuthenticatedJWT, async (req, res) => {
     const { nome, cpf, email, senha, admin } = req.body;
     const cpfFormatado = cpf.replace(/\D/g, '');
 
     try {
-        // Cria um novo agente
-
         // Checa se o CPF já está cadastrado
         const agenteJaExistente = await Agente.findOne({ cpf: cpfFormatado });
         const emailJaExistente = await Agente.findOne({ email: email });
@@ -24,19 +24,16 @@ router.post('/cadastrar', ensureAuthenticated, async (req, res) => {
             req.flash('error', 'Este CPF já está cadastrado!');
             return res.redirect('/agente/cadastrar');
         }
-
         else if (emailJaExistente) {
             req.flash('error', 'Este e-mail já está cadastrado!');
             return res.redirect('/agente/cadastrar');
         }
-
         else if (senha.length < 8) {
             req.flash('error', 'A senha deve ter pelo menos 8 caracteres ou mais!');
             return res.redirect('/agente/cadastrar');
         }
-
         else if (cpfFormatado.length != 11) {
-            req.flash('error', 'CPF invalido!');
+            req.flash('error', 'CPF inválido!');
             return res.redirect('/agente/cadastrar');
         }
 
@@ -60,9 +57,8 @@ router.post('/cadastrar', ensureAuthenticated, async (req, res) => {
     }
 });
 
-
 // Rota para exibir todas as denúncias novas (Recebidas)
-router.get('/novasDenuncias', ensureAuthenticated, async (req, res) => {
+router.get('/novasDenuncias', ensureAuthenticatedJWT, async (req, res) => {
     try {
         const denunciasNovas = await Denuncia.find({ status: 'Recebida' }); // Filtra denúncias pelo status
         res.render('agente/novasDenuncias', { denuncias: denunciasNovas }); // Renderiza a view com as denúncias
@@ -74,7 +70,7 @@ router.get('/novasDenuncias', ensureAuthenticated, async (req, res) => {
 });
 
 // Rota para visualizar detalhes da denúncia
-router.get('/visualizar/:id', async (req, res) => {
+router.get('/visualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
 
     try {
@@ -94,7 +90,7 @@ router.get('/visualizar/:id', async (req, res) => {
 });
 
 // Rota para se atribuir a uma denúncia
-router.get('/atribuir/:id', async (req, res) => {
+router.get('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
 
     try {
@@ -114,6 +110,7 @@ router.get('/atribuir/:id', async (req, res) => {
 // Página de Login
 router.get('/login', (req, res) => res.render('agente/login'));
 
+// Rota de Login
 router.post('/login', async (req, res) => {
     const { cpf, senha } = req.body;
 
@@ -132,12 +129,17 @@ router.post('/login', async (req, res) => {
             return res.redirect('/agente/login');
         }
 
-        // Salva o agente na sessão
-        req.session.user = {
+        // Gera o JWT
+        const payload = {
             id: agente._id,
             nome: agente.nome,
             admin: agente.admin
         };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+
+        // Define o token como um cookie HTTP-only
+        res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
 
         req.flash('success', 'Usuário logado com sucesso!');
         res.redirect('/agente/novasDenuncias');
@@ -148,14 +150,15 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
+// Rota para Logout
 router.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) return console.error(err);
-        res.redirect('/agente/login');
-    });
-    
+    // Remove o cookie do token
+    res.clearCookie('token');
+
+    req.flash('success', 'Saiu!');
+    res.redirect('/agente/login');
 });
+
 
 module.exports = router;
 
