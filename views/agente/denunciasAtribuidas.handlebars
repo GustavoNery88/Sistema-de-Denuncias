@@ -1,0 +1,30 @@
+<div class="secao">
+    <h3>Denúncias Atribuídas</h3>
+
+    {{#if denuncias.length}}
+    {{#each denuncias}}
+    <div class="card denuncias-card">
+        <div class="denuncias-card-infomacoes">
+            <div>
+                <p>{{protocolo}}</p>
+            </div>
+            <div>
+                <p>{{formatDate this.data}}</p>
+            </div>
+        </div>
+        <div class="denuncias-card-botoes">
+            <div>
+                <form action="/agente/desatribuir/{{_id}}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-warning">Desatribuir <i class="bi bi-dash"></i></button>
+                </form>
+            </div>
+            <div>
+                <a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <p>Nenhuma denúncia atribuída encontrada.</p>
+    {{/if}}
+</div>

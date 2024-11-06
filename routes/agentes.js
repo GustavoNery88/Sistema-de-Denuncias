@@ -89,13 +89,17 @@ router.get('/visualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
-// Rota para se atribuir a uma denúncia
+
 router.get('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
+    const agenteId = req.user.id; // ID do agente logado
 
     try {
-        // Atribui o agente à denúncia atualizando o campo responsável
-        await Denuncia.findByIdAndUpdate(denunciaId, { status: 'Em andamento' });
+        // Atualiza a denúncia com o ID do agente e muda o status para 'Em análise'
+        await Denuncia.findByIdAndUpdate(denunciaId, {
+            agenteAtribuido: agenteId,
+            status: 'Em análise'
+        });
 
         req.flash('success', 'Você se atribuiu a esta denúncia com sucesso.');
         res.redirect('/agente/novasDenuncias'); // Redireciona para a página de novas denúncias
@@ -105,6 +109,40 @@ router.get('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
         res.redirect('/agente/novasDenuncias');
     }
 });
+
+// Rota para se desatribuir da denúncia
+router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
+    const denunciaId = req.params.id;
+
+    try {
+        await Denuncia.findByIdAndUpdate(denunciaId, {
+            agenteAtribuido: null,
+            status: 'Recebida' // Retorna o status para "Recebida"
+        });
+
+        req.flash('success', 'Você se desatribuiu desta denúncia com sucesso.');
+        res.redirect('/agente/denunciasAtribuidas');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao desatribuir-se da denúncia.');
+        res.redirect('/agente/denunciasAtribuidas');
+    }
+});
+
+
+
+// Rota para exibir denúncias atribuídas ao agente logado
+router.get('/denunciasAtribuidas', ensureAuthenticatedJWT, async (req, res) => {
+    try {
+        const denunciasAtribuidas = await Denuncia.find({ agenteAtribuido: req.user.id });
+        res.render('agente/denunciasAtribuidas', { denuncias: denunciasAtribuidas });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao buscar denúncias atribuídas.');
+        res.redirect('/agente/novasDenuncias');
+    }
+});
+
 
 
 // Página de Login
