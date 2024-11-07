@@ -111,6 +111,26 @@ router.post('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
 });
 
 
+// Rota para exibir denúncias atribuídas ao agente logado
+router.get('/denunciasAtribuidas', ensureAuthenticatedJWT, async (req, res) => {
+    try {
+        const denunciasAtribuidas = await Denuncia.find({ agenteAtribuido: req.user.id });
+
+        // Busca o agente pelo ID
+        const agente = await Agente.findById(req.user.id);
+
+        res.render('agente/denunciasAtribuidas', {
+            denuncias: denunciasAtribuidas,
+            agente
+        });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao buscar denúncias atribuídas.');
+        res.redirect('/agente/novasDenuncias');
+    }
+});
+
+
 // Rota para se desatribuir da denúncia
 router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
@@ -127,19 +147,6 @@ router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
         console.error(error);
         req.flash('error', 'Erro ao desatribuir-se da denúncia.');
         res.redirect('/agente/denunciasAtribuidas');
-    }
-});
-
-
-// Rota para exibir denúncias atribuídas ao agente logado
-router.get('/denunciasAtribuidas', ensureAuthenticatedJWT, async (req, res) => {
-    try {
-        const denunciasAtribuidas = await Denuncia.find({ agenteAtribuido: req.user.id });
-        res.render('agente/denunciasAtribuidas', { denuncias: denunciasAtribuidas });
-    } catch (error) {
-        console.error(error);
-        req.flash('error', 'Erro ao buscar denúncias atribuídas.');
-        res.redirect('/agente/novasDenuncias');
     }
 });
 
