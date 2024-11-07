@@ -71,6 +71,8 @@ router.post('/registrar', upload.single('imagem'), async (req, res) => {
     }
 });
 
+
+
 // Página para consultar denúncia
 router.get('/consultar', (req, res) => res.render('denuncia/consultarDenuncia'));
 

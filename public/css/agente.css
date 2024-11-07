@@ -44,3 +44,8 @@
     padding: 10px;
     border-radius: 6px;
 }
+
+.editar-container{
+    display: flex;
+    gap: 10px;
+}

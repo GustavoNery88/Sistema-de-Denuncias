@@ -1,0 +1,79 @@
+<div class="secao">
+    <h3>Detalhes da Denúncia:</h3>
+
+    <div class="container-denuncia-detalhes">
+        <div class="denuncia-detalhes">
+            {{#if denuncia}}
+            <div>
+                <label>Protocolo:</label>
+                <p><strong>{{denuncia.protocolo}}</strong></p>
+            </div>
+            <div>
+                <label>Título:</label>
+                <h4>{{denuncia.titulo}}</h4>
+            </div>
+            <div>
+                <label>Descrição:</label>
+                <div class="denuncia-detalhes-descricao">
+                    <p>{{denuncia.descricao}}</p>
+                </div>
+            </div>
+
+            <div>
+                <label>Localização do crime:</label>
+                <div class="denuncia-detalhes-localizacao">
+                    <p>{{denuncia.localizacao}}</p>
+                </div>
+            </div>
+
+            <div>
+                <label>Status:</label>
+                <form class="editar-container" action="/agente/editarDenuncia" method="POST">
+                    <!-- Campo oculto para enviar o ID da denúncia -->
+                    <input type="hidden" name="id" value="{{denuncia._id}}">
+
+                    <!-- Select com as opções de status -->
+                    <select class="btn btn-secondary" name="status">
+                        <option value="Pendências legais">Pendências legais</option>
+                        <option value="Em ação de fiscalização">Em ação de fiscalização</option>
+                        <option value="Resolvida">Resolvida</option>
+                        <option value="Fechada">Fechada</option>
+                        <option value="Arquivada">Arquivada</option>
+                        <option value="{{denuncia.status}}" selected>{{denuncia.status}}</option>
+                        <!-- Exibe o status atual -->
+                    </select>
+
+                    <!-- Botão para salvar a alteração -->
+                    <button type="submit" class="btn btn-success">Salvar <i class="bi bi-floppy"></i></button>
+                </form>
+            </div>
+
+            <div>
+                <label>Data do Ocorrido:</label>
+                <div class="denuncia-detalhes-data">
+                    <p>{{formatDate denuncia.data}}</p>
+                </div>
+            </div>
+
+            {{#if denuncia.imagem}}
+            <div>
+                <label>Imagem:</label>
+                <img src="data:image/png;base64,{{denuncia.imagem}}" alt="Imagem da Denúncia">
+            </div>
+            {{else}}
+            <div>
+                <label>Imagem:</label>
+                <img src="/img/sem-foto.jpg" alt="Imagem da Denúncia">
+            </div>
+            {{/if}}
+
+            {{else}}
+            <p>Denúncia não encontrada.</p>
+            {{/if}}
+
+            <div>
+                <a href="/agente/novasDenuncias" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>

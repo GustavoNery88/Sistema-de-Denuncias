@@ -89,6 +89,28 @@ router.get('/visualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
+// Rota para editar detalhes da denúncia
+router.get('/editarDenuncia/:id', ensureAuthenticatedJWT, async (req, res) => {
+    const denunciaId = req.params.id;
+
+    try {
+        // Busca a denúncia pelo ID para visualização
+        const denuncia = await Denuncia.findById(denunciaId);
+        if (!denuncia) {
+            req.flash('error', 'Denúncia não encontrada.');
+            return res.redirect('/agente/novasDenuncias');
+        }
+
+        res.render('agente/editarDenuncia', { denuncia });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao visualizar a denúncia.');
+        res.redirect('/agente/novasDenuncias');
+    }
+});
+
+
+
 // Rota para se atribuir da denúncia
 router.post('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
@@ -109,6 +131,24 @@ router.post('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
         res.redirect('/agente/novasDenuncias');
     }
 });
+
+// Rota para editar o status da denúncia
+router.post('/editarDenuncia', ensureAuthenticatedJWT, async (req, res) => {
+    const { id, status } = req.body;
+
+    try {
+        // Atualiza a denúncia com o novo status
+        await Denuncia.findByIdAndUpdate(id, { status });
+
+        req.flash('success', 'Status da denúncia atualizado com sucesso!');
+        res.redirect('/agente/novasDenuncias');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao atualizar o status da denúncia.');
+        res.redirect('/agente/novasDenuncias');
+    }
+});
+
 
 
 // Rota para exibir denúncias atribuídas ao agente logado
