@@ -150,7 +150,6 @@ router.post('/editarDenuncia', ensureAuthenticatedJWT, async (req, res) => {
 });
 
 
-
 // Rota para exibir denúncias atribuídas ao agente logado
 router.get('/denunciasAtribuidas', ensureAuthenticatedJWT, async (req, res) => {
     try {
