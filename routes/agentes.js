@@ -141,11 +141,11 @@ router.post('/editarDenuncia', ensureAuthenticatedJWT, async (req, res) => {
         await Denuncia.findByIdAndUpdate(id, { status });
 
         req.flash('success', 'Status da denúncia atualizado com sucesso!');
-        res.redirect('/agente/novasDenuncias');
+        res.redirect('/agente/denunciasAtribuidas');
     } catch (error) {
         console.error(error);
         req.flash('error', 'Erro ao atualizar o status da denúncia.');
-        res.redirect('/agente/novasDenuncias');
+        res.redirect('/agente/denunciasAtribuidas');
     }
 });
 
