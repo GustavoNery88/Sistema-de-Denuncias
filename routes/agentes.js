@@ -89,8 +89,8 @@ router.get('/visualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
-
-router.get('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
+// Rota para se atribuir da denúncia
+router.post('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
     const agenteId = req.user.id; // ID do agente logado
 
@@ -110,6 +110,7 @@ router.get('/atribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
+
 // Rota para se desatribuir da denúncia
 router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
@@ -128,7 +129,6 @@ router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
         res.redirect('/agente/denunciasAtribuidas');
     }
 });
-
 
 
 // Rota para exibir denúncias atribuídas ao agente logado

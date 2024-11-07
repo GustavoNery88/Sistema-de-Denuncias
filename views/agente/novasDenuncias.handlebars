@@ -15,8 +15,9 @@
         </div>
         <div class="denuncias-card-botoes">
             <div>
-                <a href="/agente/atribuir/{{_id}}" class="btn btn-light">Vincula-se <i
-                        class="bi bi-plus-square"></i></a>
+                <form action="/agente/atribuir/{{_id}}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-light">Atribuir <i class="bi bi-plus-square"></i></button>
+                </form>
             </div>
             <div>
                 <a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
