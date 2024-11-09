@@ -190,6 +190,18 @@ router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
 });
 
 
+// Rota para exibir os usuários cadastrados
+router.get('/usuarios', ensureAuthenticatedJWT, async (req, res) => {
+    try {
+        const agentes = await Agente.find({}, 'nome cpf'); // Seleciona apenas os campos desejados
+        res.render('agente/usuarios', { agentes }); // Renderiza a view e passa os agentes como dados
+    } catch (error) {
+        console.error(error);
+        req.flash("error", "Erro ao buscar os usuários.");
+        res.redirect('/');
+    }
+});
+
 
 // Página de Login
 router.get('/login', (req, res) => res.render('agente/login'));

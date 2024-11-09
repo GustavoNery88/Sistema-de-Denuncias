@@ -49,3 +49,43 @@
     display: flex;
     gap: 10px;
 }
+
+
+/* Tela de usuarios */
+.usuarios-card {
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    background-color: white;
+    justify-content: space-between;
+    margin-top: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.usuarios-card-infomacoes {
+    display: flex;
+    gap: 10px;
+}
+
+.usuarios-card-botoes {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.usuarios-card-infomacoes p {
+    margin: 0;
+}
+
+.usuarios-card-infomacoes div {
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.truncated-text {
+    white-space: nowrap;        /* Impede que o texto quebre em várias linhas */
+    overflow: hidden;           /* Esconde o texto que ultrapassa o tamanho */
+    text-overflow: ellipsis;    /* Adiciona "..." ao final do texto truncado */
+    width: 200px;               /* Define a largura máxima do elemento */
+}

@@ -1,0 +1,34 @@
+<div class="secao">
+    <h3>Usuários Cadastrados</h3>
+
+    {{#if agentes.length}}
+
+    {{#each agentes}}
+    <div class="card usuarios-card">
+        <div class="usuarios-card-infomacoes">
+            <div>
+                <p class="truncated-text">{{nome}}</p>
+            </div>
+            <div>
+                <p>{{cpf}}</p>
+            </div>
+        </div>
+        <div class="usuarios-card-botoes">
+            <div>
+                <a href="" class="btn btn-secondary">Editar <i class="bi bi-pencil"></i></a>
+            </div>
+            <div>
+                <a href="" class="btn btn-danger">Excluir <i class="bi bi-trash3"></i></a>
+            </div>
+            <div>
+                <a href="" class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+
+{{else}}
+<p>Nenhum usuário encontrado.</p>
+{{/if}}
+</div>
