@@ -1,21 +1,21 @@
-.container-cadastro-agente {
+.container-cadastroLogin-agente {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.cadastro-agente {
+.cadastroLogin-agente {
     width: 40%;
     margin-top: 40px;
 }
 
-.cadastro-agente-botao button {
+.cadastroLogin-agente-botao button {
     width: 100%;
     margin-top: 30px;
 }
 
 .denuncias-card {
-    width: 50%;
+    width: 700px;
     display: flex;
     flex-direction: row;
     padding: 20px;
