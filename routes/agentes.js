@@ -190,7 +190,7 @@ router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
 });
 
 // Rota para exibir os usuários cadastrados
-router.get('/usuarios', ensureAuthenticatedJWT, async (req, res) => {
+router.get('/usuarios', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     try {
         const usuarios = await Agente.find({}, 'nome cpf email'); // Inclua email caso precise exibir essa informação
         res.render('agente/usuarios', { usuarios, user: req.user }); // Renderiza a view e passa os agentes como dados
@@ -203,7 +203,7 @@ router.get('/usuarios', ensureAuthenticatedJWT, async (req, res) => {
 
 
 // Rota para visualizar o usuario
-router.get('/usuarioVisualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
+router.get('/usuarioVisualizar/:id', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const usuarioId = req.params.id;
 
     try {
@@ -223,7 +223,7 @@ router.get('/usuarioVisualizar/:id', ensureAuthenticatedJWT, async (req, res) =>
 });
 
 // Rota para exibir o formulário de edição do usuário
-router.get('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
+router.get('/usuarioEditar/:id', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const usuarioId = req.params.id;
 
     try {
@@ -243,7 +243,7 @@ router.get('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
 
 
 // Rota para processar a edição do usuário
-router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
+router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const usuarioId = req.params.id;
     const { nome, cpf, email, senha } = req.body;
     const cpfFormatado = cpf.replace(/\D/g, ''); // Formatar CPF
@@ -294,7 +294,7 @@ router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
 
 
 // Rota para excluir o usuário
-router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, async (req, res) => {
+router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const usuarioId = req.params.id;
 
     try {
