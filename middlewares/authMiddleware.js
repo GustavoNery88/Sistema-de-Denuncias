@@ -20,4 +20,14 @@ const ensureAuthenticatedJWT = (req, res, next) => {
     }
 };
 
-module.exports = { ensureAuthenticatedJWT };
+// Verificação de admin
+function ensureAdmin(req, res, next) {
+    if (req.user && req.user.admin) {
+        return next();
+    }
+    req.flash('error', 'Acesso negado: apenas administradores podem acessar esta página.');
+    res.redirect('/'); // Redireciona para a página inicial ou para uma página de acesso negado
+}
+
+module.exports = { ensureAuthenticatedJWT, ensureAdmin };
+

@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken'); // Adicione esta linha
 const router = express.Router();
 const Agente = require('../models/Agente');
 const Denuncia = require('../models/Denuncia');
-const { ensureAuthenticatedJWT } = require('../middlewares/authMiddleware'); // Atualize para middleware JWT
+const { ensureAuthenticatedJWT, ensureAdmin } = require('../middlewares/authMiddleware'); // Atualize para middleware JWT
 
 
 // Página de cadastro de agente
-router.get('/cadastrar', ensureAuthenticatedJWT, (req, res) => res.render('agente/cadastrarAgente'));
+router.get('/cadastrar', ensureAuthenticatedJWT, ensureAdmin, (req, res) => res.render('agente/cadastrarAgente'));
 
 // Processa o cadastro do agente
-router.post('/cadastrar', ensureAuthenticatedJWT, async (req, res) => {
+router.post('/cadastrar', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const { nome, cpf, email, senha, admin } = req.body;
     const cpfFormatado = cpf.replace(/\D/g, '');
 
