@@ -273,7 +273,6 @@ router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, async (req, res) => {
 });
 
 
-
 // Página de Login
 router.get('/login', (req, res) => res.render('agente/login'));
 
