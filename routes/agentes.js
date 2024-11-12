@@ -241,13 +241,47 @@ router.get('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
+
 // Rota para processar a edição do usuário
 router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
     const usuarioId = req.params.id;
-    const { nome, cpf, email } = req.body;
+    const { nome, cpf, email, senha } = req.body;
+    const cpfFormatado = cpf.replace(/\D/g, ''); // Formatar CPF
 
     try {
-        await Agente.findByIdAndUpdate(usuarioId, { nome, cpf, email });
+        // Objeto de atualização
+        const updates = { nome, cpf: cpfFormatado, email };
+
+        // Verificação de duplicidade de CPF e e-mail, excluindo o próprio usuário
+        const agenteJaExistente = await Agente.findOne({ cpf: cpfFormatado, _id: { $ne: usuarioId } });
+        const emailJaExistente = await Agente.findOne({ email: email, _id: { $ne: usuarioId } });
+
+        if (agenteJaExistente) {
+            req.flash('error', 'Este CPF já está cadastrado!');
+            return res.redirect(`/agente/usuarioEditar/${usuarioId}`);
+        }
+        if (emailJaExistente) {
+            req.flash('error', 'Este e-mail já está cadastrado!');
+            return res.redirect(`/agente/usuarioEditar/${usuarioId}`);
+        }
+        if (cpfFormatado.length !== 11) {
+            req.flash('error', 'CPF inválido!');
+            return res.redirect(`/agente/usuarioEditar/${usuarioId}`);
+        }
+
+        // Se uma nova senha for fornecida, aplique um hash e verifique o comprimento
+        if (senha) {
+            if (senha.length < 8) {
+                req.flash('error', 'A senha deve ter pelo menos 8 caracteres.');
+                return res.redirect(`/agente/usuarioEditar/${usuarioId}`);
+            }
+            const salt = await bcrypt.genSalt(10);
+            updates.senha = await bcrypt.hash(senha, salt);
+        }
+
+        // Atualiza o usuário no banco de dados
+        await Agente.findByIdAndUpdate(usuarioId, updates);
+
         req.flash('success', 'Usuário atualizado com sucesso!');
         res.redirect('/agente/usuarios');
     } catch (error) {
@@ -256,6 +290,8 @@ router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
         res.redirect(`/agente/usuarioEditar/${usuarioId}`);
     }
 });
+
+
 
 // Rota para excluir o usuário
 router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, async (req, res) => {

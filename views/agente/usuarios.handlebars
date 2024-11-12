@@ -20,13 +20,34 @@
         </div>
         <div class="usuarios-card-botoes">
             <div>
-                <a href="/agente/usuarioEditar/{{_id}}" class="btn btn-secondary">Editar <i class="bi bi-pencil"></i></a>
+                <a href="/agente/usuarioEditar/{{_id}}" class="btn btn-secondary">Editar <i
+                        class="bi bi-pencil"></i></a>
             </div>
             <div>
-                <a href="/agente/usuarioExcluir/{{_id}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir <i class="bi bi-trash3"></i></a>
+                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir <i
+                        class="bi bi-trash3"></i></a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                Tem certeza que deseja excluir este usuário?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <a href="/agente/usuarioExcluir/{{_id}}" class="btn btn-danger" type="button"
+                                    class="btn btn-primary">Excluir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div>
-                <a href="/agente/usuarioVisualizar/{{_id}}" class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
+                <a href="/agente/usuarioVisualizar/{{_id}}" class="btn btn-dark">Visualizar <i
+                        class="bi bi-eye"></i></a>
             </div>
         </div>
     </div>
