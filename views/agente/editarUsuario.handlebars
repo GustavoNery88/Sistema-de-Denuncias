@@ -1,0 +1,25 @@
+<div class="secao">
+    <h3>Editar Usúario: </h3>
+    <div class="card">
+        <div class="card-body">
+            <form action="/agente/usuarioEditar/{{usuario._id}}" method="POST">
+                <div class="mb-3">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" name="nome" value="{{usuario.nome}}">
+                </div>
+                <div class="mb-3">
+                    <label for="CPF">CPF</label>
+                    <input type="text" class="form-control" name="cpf" value="{{usuario.cpf}}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" name="e-mail" value="{{usuario.email}}" required>
+                </div>
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/agente/usuarios" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

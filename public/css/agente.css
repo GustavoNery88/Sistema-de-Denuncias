@@ -89,3 +89,8 @@
     text-overflow: ellipsis;    /* Adiciona "..." ao final do texto truncado */
     width: 200px;               /* Define a largura máxima do elemento */
 }
+
+
+.botao-cadastrar-usuario {
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

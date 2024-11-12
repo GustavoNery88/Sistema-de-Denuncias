@@ -189,18 +189,89 @@ router.post('/desatribuir/:id', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
-
 // Rota para exibir os usuários cadastrados
 router.get('/usuarios', ensureAuthenticatedJWT, async (req, res) => {
     try {
-        const agentes = await Agente.find({}, 'nome cpf'); // Seleciona apenas os campos desejados
-        res.render('agente/usuarios', { agentes }); // Renderiza a view e passa os agentes como dados
+        const usuarios = await Agente.find({}, 'nome cpf email'); // Inclua email caso precise exibir essa informação
+        res.render('agente/usuarios', { usuarios, user: req.user }); // Renderiza a view e passa os agentes como dados
     } catch (error) {
         console.error(error);
         req.flash("error", "Erro ao buscar os usuários.");
         res.redirect('/');
     }
 });
+
+
+// Rota para visualizar o usuario
+router.get('/usuarioVisualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
+    const usuarioId = req.params.id;
+
+    try {
+        // Busca o agente pelo ID e exclui o campo 'senha' dos dados retornados
+        const usuario = await Agente.findById(usuarioId).select('nome cpf email');
+        if (!usuario) {
+            req.flash('error', 'Usuário não encontrado.');
+            return res.redirect('/agente/usuarios');
+        }
+
+        res.render('agente/visualizarUsuario', { usuario });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao visualizar o usuário.');
+        res.redirect('/agente/usuarios');
+    }
+});
+
+// Rota para exibir o formulário de edição do usuário
+router.get('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
+    const usuarioId = req.params.id;
+
+    try {
+        const usuario = await Agente.findById(usuarioId).select('nome cpf email');
+        if (!usuario) {
+            req.flash('error', 'Usuário não encontrado.');
+            return res.redirect('/agente/usuarios');
+        }
+
+        res.render('agente/editarUsuario', { usuario });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao carregar o usuário para edição.');
+        res.redirect('/agente/usuarios');
+    }
+});
+
+// Rota para processar a edição do usuário
+router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, async (req, res) => {
+    const usuarioId = req.params.id;
+    const { nome, cpf, email } = req.body;
+
+    try {
+        await Agente.findByIdAndUpdate(usuarioId, { nome, cpf, email });
+        req.flash('success', 'Usuário atualizado com sucesso!');
+        res.redirect('/agente/usuarios');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao atualizar o usuário.');
+        res.redirect(`/agente/usuarioEditar/${usuarioId}`);
+    }
+});
+
+// Rota para excluir o usuário
+router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, async (req, res) => {
+    const usuarioId = req.params.id;
+
+    try {
+        await Agente.findByIdAndDelete(usuarioId);
+        req.flash('success', 'Usuário excluído com sucesso!');
+        res.redirect('/agente/usuarios');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao excluir o usuário.');
+        res.redirect('/agente/usuarios');
+    }
+});
+
 
 
 // Página de Login
@@ -213,7 +284,7 @@ router.post('/login', async (req, res) => {
 
     try {
         // Busca o agente pelo CPF
-        const agente = await Agente.findOne({ cpf });
+        const agente = await Agente.findOne({ cpf, });
         if (!agente) {
             req.flash('error', 'CPF não encontrado!');
             return res.redirect('/agente/login');
