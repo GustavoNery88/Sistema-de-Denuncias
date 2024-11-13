@@ -66,10 +66,6 @@ body {
 
 .cabecalho-logo {
 	cursor: pointer;
-	font-size: 1.5rem;
-	color: #1E1E1E;
-	font-weight: 600;
-	text-decoration: none;
 }
 
 .cabecalho-logo:hover {
@@ -516,6 +512,10 @@ body {
 		font-size: 14px;
 	}
 
+	.secao-passos-texto li{
+		font-size: 14px;
+	}
+
 
 	.secao-contato h3 {
 		font-size: 18px;
@@ -524,6 +524,9 @@ body {
 }
 
 @media (max-width: 450px) {
+	.cabecalho-logo img{
+		width: 40px;
+	}
 
 	.situcao-denuncia p{
 		font-size: 14px;
@@ -584,6 +587,10 @@ body {
 	}
 
 	.secao-passos-texto p {
+		font-size: 12px;
+	}
+
+	.secao-passos-texto li {
 		font-size: 12px;
 	}
 
