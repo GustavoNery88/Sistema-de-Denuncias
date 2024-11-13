@@ -99,6 +99,73 @@
 @media (max-width: 940px) {
 	.cadastroLogin-agente {
         width: 80%;
-        
     }
+
+    .denuncias-card {
+        width: 500px;
+        padding: 10px;
+    }
+
+    .denuncias-card-infomacoes div p{
+       font-size: 12px;
+    }
+
+    .denuncias-card-botoes button{
+        font-size: 12px;
+    }
+
+    .denuncias-card-botoes a{
+        font-size: 12px;
+    }
+
+}
+
+@media (max-width: 580px){
+
+    .denuncias-titulo{
+        font-size: 18px;
+    }
+
+    .denuncias-card {
+        width: 420px;
+    }
+
+    .denuncias-card-infomacoes div p{
+        font-size: 8px;
+     }
+ 
+     .denuncias-card-botoes button{
+         font-size: 8px;
+     }
+ 
+     .denuncias-card-botoes a{
+         font-size: 8px;
+     }
+
+
+}
+
+@media (max-width: 480px){
+    .denuncias-card {
+        width: 340px;
+    }
+}
+
+
+@media (max-width: 390px){
+    .denuncias-card {
+        width: 280px;
+    }
+
+    .denuncias-card-infomacoes div p{
+        font-size: 6px;
+     }
+ 
+     .denuncias-card-botoes button{
+         font-size: 6px;
+     }
+ 
+     .denuncias-card-botoes a{
+         font-size: 6px;
+     }
 }
