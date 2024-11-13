@@ -467,19 +467,19 @@ body {
 		/* Fonte menor para se ajustar melhor */
 	}
 
-    .secao-passos-texto {
-        padding: 30px;
-    }
+	.secao-passos-texto {
+		padding: 30px;
+	}
 
 	.secao-apresentação-texto {
 		width: 90%;
 	}
 
-	.secao-apresentação{
+	.secao-apresentação {
 		padding: 30px;
 	}
 
-	.secao-contato{
+	.secao-contato {
 		padding: 30px;
 	}
 
@@ -524,14 +524,40 @@ body {
 }
 
 @media (max-width: 450px) {
-	
-.formulario-denuncia-informacao h6 {
-	font-size: 15px;
-}
 
-.formulario-denuncia-informacao p {
-	font-size: 12px;
-}
+	.situcao-denuncia p{
+		font-size: 14px;
+	}
+
+	.secao-consulta h3{
+		font-size: 18px;
+
+	}
+
+	.secao-consulta label{
+		font-size: 14px;
+	}
+
+	.input-consulta {
+		margin-top: 10px;
+		width: 280px;
+	}
+
+	.formulario-denuncia-informacao h6 {
+		font-size: 15px;
+	}
+
+	.formulario-denuncia-informacao p {
+		font-size: 12px;
+	}
+
+	.formulario-denuncia h3{
+		font-size: 16px;
+	}
+
+	.formulario-denuncia label{
+		font-size: 12px;
+	}
 
 	.fundo-imagem-texto h1 {
 		font-size: 30px;
