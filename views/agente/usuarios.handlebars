@@ -4,10 +4,9 @@
             <button class="botao-cadastrar-usuario btn btn-success">Cadastrar</button>
         </a>
     </div>
-    <h3>Usuários Cadastrados</h3>
+    <h3 class="usuarios-titulo">Usuários Cadastrados</h3>
 
     {{#if usuarios.length}}
-
     {{#each usuarios}}
     <div class="card usuarios-card">
         <div class="usuarios-card-infomacoes">
@@ -19,42 +18,47 @@
             </div>
         </div>
         <div class="usuarios-card-botoes">
-            <div>
-                <a href="/agente/usuarioEditar/{{_id}}" class="btn btn-secondary">Editar <i
-                        class="bi bi-pencil"></i></a>
-            </div>
-            <div>
-                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir <i
-                        class="bi bi-trash3"></i></a>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                Tem certeza que deseja excluir este usuário?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Cancelar</button>
-                                <a href="/agente/usuarioExcluir/{{_id}}" class="btn btn-danger" type="button"
-                                    class="btn btn-primary">Excluir</a>
-                            </div>
-                        </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Ações
+                </button>
+                <ul class="dropdown-menu">
+                    <div class="dropdown-item">
+                        <a href="/agente/usuarioEditar/{{_id}}" class="btn btn-secondary">Editar <i
+                                class="bi bi-pencil"></i></a>
                     </div>
-                </div>
+
+                    <div class="dropdown-item">
+                        <a href="/agente/usuarioVisualizar/{{_id}}" class="btn btn-dark">Visualizar <i
+                                class="bi bi-eye"></i></a>
+                    </div>
+
+                    <div class="dropdown-item">
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir-{{_id}}">Excluir <i
+                                class="bi bi-trash3"></i></a>
+                    </div>
+                </ul>
             </div>
-            <div>
-                <a href="/agente/usuarioVisualizar/{{_id}}" class="btn btn-dark">Visualizar <i
-                        class="bi bi-eye"></i></a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalExcluir-{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Tem certeza que deseja excluir este usuário?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a href="/agente/usuarioExcluir/{{_id}}" class="btn btn-danger" type="button">Excluir</a>
+                </div>
             </div>
         </div>
     </div>
     {{/each}}
-</div>
-
-{{else}}
-<p>Nenhum usuário encontrado.</p>
-{{/if}}
+    {{else}}
+    <p>Nenhum usuário encontrado.</p>
+    {{/if}}
 </div>

@@ -1,5 +1,6 @@
 <div class="secao ">
-    <h3 class="denuncias-titulo">Denúncias Atribuídas ({{agente.nome}}, {{agente.cpf}})</h3>
+    <h3 class="denuncias-titulo">Denúncias Atribuídas </h3>
+    <p class="agente-dados"> ({{agente.nome}}, {{agente.cpf}})</p>
 
     {{#if denuncias.length}}
     {{#each denuncias}}
@@ -27,12 +28,12 @@
                         </form>
                     </div>
 
-                    <div class="dropdown-item"><a href="/agente/editarDenuncia/{{_id}}"
-                            class="btn btn-secondary">Editar <i class="bi bi-pencil"></i></a>
+                    <div class="dropdown-item"><a href="/agente/editarDenuncia/{{_id}}" class="btn btn-secondary">Editar
+                            <i class="bi bi-pencil"></i></a>
                     </div>
 
-                    <div class="dropdown-item"><a href="/agente/visualizar/{{_id}}"
-                            class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
+                    <div class="dropdown-item"><a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i
+                                class="bi bi-eye"></i></a>
                     </div>
                 </ul>
             </div>

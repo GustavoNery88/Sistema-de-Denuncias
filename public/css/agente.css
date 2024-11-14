@@ -45,7 +45,13 @@
     border-radius: 6px;
 }
 
-.editar-container{
+.agente-dados {
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.editar-container {
     display: flex;
     gap: 10px;
 }
@@ -84,20 +90,37 @@
 }
 
 .truncated-text {
-    white-space: nowrap;        /* Impede que o texto quebre em várias linhas */
-    overflow: hidden;           /* Esconde o texto que ultrapassa o tamanho */
-    text-overflow: ellipsis;    /* Adiciona "..." ao final do texto truncado */
-    width: 200px;               /* Define a largura máxima do elemento */
+    white-space: nowrap;
+    /* Impede que o texto quebre em várias linhas */
+    overflow: hidden;
+    /* Esconde o texto que ultrapassa o tamanho */
+    text-overflow: ellipsis;
+    /* Adiciona "..." ao final do texto truncado */
+    width: 200px;
+    /* Define a largura máxima do elemento */
 }
 
 
 .botao-cadastrar-usuario {
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.dropdown-item a {
+    width: 100%;
+}
+
+.dropdown-item button {
+    width: 100%;
+}
+
+.dropdown-item:focus, .dropdown-item:active {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 
+
 @media (max-width: 940px) {
-	.cadastroLogin-agente {
+    .cadastroLogin-agente {
         width: 80%;
     }
 
@@ -106,23 +129,39 @@
         padding: 10px;
     }
 
-    .denuncias-card-infomacoes div p{
-       font-size: 12px;
-    }
-
-    .denuncias-card-botoes button{
+    .denuncias-card-infomacoes div p {
         font-size: 12px;
     }
 
-    .denuncias-card-botoes a{
+    .denuncias-card-botoes button {
+        font-size: 12px;
+    }
+
+    .denuncias-card-botoes a {
+        font-size: 12px;
+    }
+
+    .usuarios-card{
+        width: 540px;
+        padding: 10px;
+    }
+
+    .usuarios-card-infomacoes p{
+        font-size: 12px;
+    }
+
+    .usuarios-card-botoes button{
+        font-size: 12px;
+    }
+
+    .usuarios-card-botoes a{
         font-size: 12px;
     }
 
 }
 
-@media (max-width: 680px){
-
-    .denuncias-titulo{
+@media (max-width: 680px) {
+    .denuncias-titulo {
         font-size: 18px;
     }
 
@@ -130,49 +169,73 @@
         width: 420px;
     }
 
-    .denuncias-card-infomacoes div p{
+    .denuncias-card-infomacoes div p {
         font-size: 8px;
-     }
- 
-     .denuncias-card-botoes button{
-         font-size: 8px;
-     }
- 
-     .denuncias-card-botoes a{
-         font-size: 8px;
-     }
+    }
+
+    .denuncias-card-botoes button {
+        font-size: 8px;
+    }
+
+    .denuncias-card-botoes a {
+        font-size: 8px;
+    }
+
+    .denuncias-titulo {
+        font-size: 18px;
+    }
+
+    .usuarios-titulo{
+        font-size: 18px;
+    }
+
+    .usuarios-card{
+        width: 420px;
+    }
+
+    .usuarios-card-infomacoes p{
+        font-size: 10px;
+    }
+
+    .usuarios-card-botoes button{
+        font-size: 8px;
+    }
+
+    .usuarios-card-botoes a{
+        font-size: 8px;
+    }
+
+    .botao-cadastrar-usuario {
+       font-size: 10px;
+    }
 
 
 }
 
-@media (max-width: 480px){
+@media (max-width: 480px) {
+
+    .botao-cadastrar-usuario {
+        margin-bottom: 30px;
+     }
+
+    .truncated-text {
+        width: auto;
+    }
     .denuncias-card {
-        width: 340px;
+        width: 300px;
+    }
+
+    .usuarios-card{
+        width: 300px;
     }
 }
 
-@media (max-width: 450px){
-    .denunciasAtribuidas-card{
-        width: 360px;
-    }
-
-}
-
-
-@media (max-width: 390px){
+@media (max-width: 410px) {
     .denuncias-card {
         width: 280px;
     }
 
-    .denuncias-card-infomacoes div p{
-        font-size: 6px;
-     }
- 
-     .denuncias-card-botoes button{
-         font-size: 6px;
-     }
- 
-     .denuncias-card-botoes a{
-         font-size: 6px;
-     }
+    .usuarios-card{
+        width: 280px;
+    }
 }

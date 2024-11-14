@@ -315,7 +315,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	padding: 40px;
-	width: 60%;
+	width: 750px;
 	margin-top: 50px;
 	border-radius: 6px;
 	gap: 30px;
@@ -432,6 +432,9 @@ body {
 	}
 }
 
+@media (max-width: 1000px) {
+}
+
 @media (max-width: 768px) {
 
 	.formulario-denuncia-container {
@@ -512,7 +515,7 @@ body {
 		font-size: 14px;
 	}
 
-	.secao-passos-texto li{
+	.secao-passos-texto li {
 		font-size: 14px;
 	}
 
@@ -524,20 +527,20 @@ body {
 }
 
 @media (max-width: 450px) {
-	.cabecalho-logo img{
+	.cabecalho-logo img {
 		width: 40px;
 	}
 
-	.situcao-denuncia p{
+	.situcao-denuncia p {
 		font-size: 14px;
 	}
 
-	.secao-consulta h3{
+	.secao-consulta h3 {
 		font-size: 18px;
 
 	}
 
-	.secao-consulta label{
+	.secao-consulta label {
 		font-size: 14px;
 	}
 
@@ -554,11 +557,11 @@ body {
 		font-size: 12px;
 	}
 
-	.formulario-denuncia h3{
+	.formulario-denuncia h3 {
 		font-size: 16px;
 	}
 
-	.formulario-denuncia label{
+	.formulario-denuncia label {
 		font-size: 12px;
 	}
 
