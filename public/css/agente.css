@@ -151,6 +151,13 @@
     }
 }
 
+@media (max-width: 450px){
+    .denunciasAtribuidas-card{
+        width: 360px;
+    }
+
+}
+
 
 @media (max-width: 390px){
     .denuncias-card {

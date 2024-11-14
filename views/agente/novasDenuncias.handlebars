@@ -14,20 +14,30 @@
             </div>
         </div>
         <div class="denuncias-card-botoes">
-            <div>
-                <form action="/agente/atribuir/{{_id}}" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-light">Atribuir <i class="bi bi-plus-square"></i></button>
-                </form>
-            </div>
-            <div>
-                <a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i class="bi bi-eye"></i></a>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Ações
+                </button>
+                <ul class="dropdown-menu">
+                    <div class="dropdown-item">
+                        <form action="/agente/atribuir/{{_id}}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-primary">Atribuir <i
+                                    class="bi bi-plus-square"></i></button>
+                        </form>
+                    </div>
+                    <div class="dropdown-item">
+                        <a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i
+                                class="bi bi-eye"></i></a>
+                    </div>
+                </ul>
             </div>
         </div>
+        {{/each}}
     </div>
-    {{/each}}
-</div>
 
-{{else}}
-<p>Nenhuma denúncia nova encontrada.</p>
-{{/if}}
+    {{else}}
+    <p>Nenhuma denúncia nova encontrada.</p>
+    {{/if}}
 </div>
