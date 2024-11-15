@@ -1,5 +1,5 @@
 <div class="secao">
-    <h3>Detalhes da Denúncia:</h3>
+    <h3 class="denuncias-titulo-detalhes">Detalhes da Denúncia:</h3>
 
     <div class="container-denuncia-detalhes">
         <div class="denuncia-detalhes">
@@ -10,7 +10,7 @@
             </div>
             <div>
                 <label>Título:</label>
-                <h4>{{denuncia.titulo}}</h4>
+                <h4 class="denuncia-detalhes-descricao-titulo">{{denuncia.titulo}}</h4>
             </div>
             <div>
                 <label>Descrição:</label>
@@ -43,7 +43,10 @@
             {{#if denuncia.imagem}}
             <div>
                 <label>Imagem:</label>
-                <img src="data:image/png;base64,{{denuncia.imagem}}" alt="Imagem da Denúncia">
+                <div>
+                    <img src="data:image/png;base64,{{denuncia.imagem}}" alt="Imagem da Denúncia">
+                </div>
+
             </div>
             {{else}}
             <div>
