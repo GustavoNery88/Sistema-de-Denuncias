@@ -123,6 +123,7 @@ body {
 	/* Define a cor do texto */
 	display: flex;
 	justify-content: center;
+
 }
 
 .fundo-imagem-texto {
@@ -130,6 +131,7 @@ body {
 	width: 40%;
 	margin-top: 80px;
 }
+
 
 .fundo-imagem-texto h1 {
 	font-size: 50px;
@@ -318,6 +320,11 @@ body {
 	margin-top: 50px;
 	border-radius: 6px;
 	gap: 30px;
+}
+
+.denuncia-detalhes h4{
+	word-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 
 .denuncia-detalhes p{
@@ -588,6 +595,10 @@ body {
 		font-size: 12px;
 	}
 	
+	.alert {
+		font-size: 14px;
+		width: 70%;
+	}
 
 }
 
