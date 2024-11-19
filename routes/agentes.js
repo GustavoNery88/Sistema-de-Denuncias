@@ -291,13 +291,21 @@ router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, ensureAdmin, async (re
     }
 });
 
-
-
 // Rota para excluir o usuário
 router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const usuarioId = req.params.id;
 
     try {
+        // agenteAtribuido é um compo na tabela denuncias
+        // Verifica se há denúncias atribuídas ao usuário
+        const denunciasAtribuidas = await Denuncia.find({ agenteAtribuido: usuarioId });
+
+        if (denunciasAtribuidas.length > 0) {
+            req.flash('error', 'O usuário não pode ser excluído porque possui denúncias vinculadas.');
+            return res.redirect('/agente/usuarios');
+        }
+
+        // Exclui o usuário
         await Agente.findByIdAndDelete(usuarioId);
         req.flash('success', 'Usuário excluído com sucesso!');
         res.redirect('/agente/usuarios');
@@ -307,6 +315,7 @@ router.get('/usuarioExcluir/:id', ensureAuthenticatedJWT, ensureAdmin, async (re
         res.redirect('/agente/usuarios');
     }
 });
+
 
 
 // Página de Login
