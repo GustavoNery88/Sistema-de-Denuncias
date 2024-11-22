@@ -10,6 +10,19 @@
 	border: none;
 }
 
+.spinner-container{
+	display: flex;
+	justify-content: center;
+}
+
+#spinner {
+	margin-top: 200px;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	z-index: 1000; /* Para garantir que o spinner fique acima de outros elementos */
+  }
+  
+
 body {
 	min-height: 100vh;
 	position: relative;
