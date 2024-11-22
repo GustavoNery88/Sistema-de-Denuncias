@@ -69,6 +69,19 @@ router.get('/novasDenuncias', ensureAuthenticatedJWT, async (req, res) => {
     }
 });
 
+// Rota para exibir todas as todas denuncias
+router.get('/todasDenuncias', ensureAuthenticatedJWT, async (req, res) => {
+    try {
+        const denunciasTodas = await Denuncia.find();
+        res.render('agente/todasDenuncias', { denuncias: denunciasTodas});
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao buscar denúncias.');
+        res.redirect('/');
+    }
+});
+
+
 // Rota para visualizar detalhes da denúncia
 router.get('/visualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;

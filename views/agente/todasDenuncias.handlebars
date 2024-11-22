@@ -1,0 +1,53 @@
+<div class="secao">
+    <ul class="nav nav-underline mb-5">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/agente/novasDenuncias">Novas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/agente/todasDenuncias">Todas</a>
+            </li>
+        </ul>
+
+    <h3 class="denuncias-titulo">Todas</h3>
+
+    {{#if denuncias.length}}
+    {{#each denuncias}}
+    <div class="card denuncias-card">
+        <div class="denuncias-card-infomacoes">
+            <div>
+                <p>{{protocolo}}</p>
+            </div>
+            <div>
+                <p>{{formatDate this.data}}</p>
+            </div>
+        </div>
+        <div class="denuncias-card-botoes">
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Ações
+                </button>
+                <ul class="dropdown-menu">
+                    {{#if agenteAtribuido}}
+                    {{else}}
+                    <div class="dropdown-item">
+                        <form action="/agente/atribuir/{{_id}}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-primary">Atribuir <i
+                                    class="bi bi-plus-square"></i></button>
+                        </form>
+                    </div>
+                    {{/if}}
+
+                    <div class="dropdown-item">
+                        <a href="/agente/visualizar/{{_id}}" class="btn btn-dark">Visualizar <i
+                                class="bi bi-eye"></i></a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <p>Nenhuma denúncia nova encontrada.</p>
+    {{/if}}
+</div>
