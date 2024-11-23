@@ -10,18 +10,6 @@
 	border: none;
 }
 
-.spinner-container{
-	display: flex;
-	justify-content: center;
-}
-
-#spinner {
-	margin-top: 200px;
-	position: absolute;
-	transform: translate(-50%, -50%);
-	z-index: 1000; /* Para garantir que o spinner fique acima de outros elementos */
-  }
-  
 
 body {
 	min-height: 100vh;
@@ -335,12 +323,12 @@ body {
 	gap: 30px;
 }
 
-.denuncia-detalhes h4{
-	word-wrap: break-word; 
-    overflow-wrap: break-word;
+.denuncia-detalhes h4 {
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
-.denuncia-detalhes p{
+.denuncia-detalhes p {
 	margin-bottom: 0px;
 }
 
@@ -411,6 +399,18 @@ body {
 /* Footer */
 .wrapper {
 	flex: 1;
+}
+
+.spinner-container {
+	display: flex;
+	justify-content: center;
+}
+
+#spinner {
+	margin-top: 250px;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
 }
 
 .footer {
@@ -527,7 +527,7 @@ body {
 
 }
 
-@media (max-width: 640px){
+@media (max-width: 640px) {
 	.denuncia-detalhes {
 		width: 500px;
 	}
@@ -536,10 +536,10 @@ body {
 		width: 400px;
 	}
 
-	.denuncias-titulo-detalhes{
+	.denuncias-titulo-detalhes {
 		font-size: 20px;
 	}
-	
+
 
 }
 
@@ -584,30 +584,30 @@ body {
 		width: 300px;
 	}
 
-	.denuncia-detalhes-descricao-titulo{
+	.denuncia-detalhes-descricao-titulo {
 		font-size: 18px;
 	}
 
-	.denuncia-detalhes p{
+	.denuncia-detalhes p {
 		font-size: 12px;
 	}
 
-	.denuncia-detalhes label{
+	.denuncia-detalhes label {
 		font-size: 10px;
 	}
 
-	.denuncia-detalhes a{
+	.denuncia-detalhes a {
 		font-size: 10px;
 	}
 
-	.editar-container select{
+	.editar-container select {
 		font-size: 12px;
 	}
 
-	.editar-container button{
+	.editar-container button {
 		font-size: 12px;
 	}
-	
+
 	.alert {
 		font-size: 14px;
 		width: 70%;
@@ -706,11 +706,11 @@ body {
 		width: 220px;
 	}
 
-	.denuncia-detalhes-descricao-titulo{
+	.denuncia-detalhes-descricao-titulo {
 		font-size: 16px;
 	}
 
-	.denuncia-detalhes p{
+	.denuncia-detalhes p {
 		font-size: 10px;
 	}
 
@@ -718,11 +718,11 @@ body {
 		width: 65%;
 	}
 
-	.editar-container select{
+	.editar-container select {
 		padding: 5px;
 	}
 
-	.editar-container button{
+	.editar-container button {
 		padding: 5px;
 	}
 
