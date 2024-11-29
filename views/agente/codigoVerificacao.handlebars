@@ -1,0 +1,21 @@
+<div class="secao container-cadastroLogin-agente">
+  <div class="card cadastroLogin-agente">
+    <div class="card-body">
+      <form action="/agente/verificar-codigo" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label">E-mail cadastrado</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="token" class="form-label">Código de verificação</label>
+          <input type="text" name="token" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="novaSenha" class="form-label">Nova Senha</label>
+          <input type="password" name="novaSenha" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Redefinir senha</button>
+      </form>
+    </div>
+  </div>
+</div>

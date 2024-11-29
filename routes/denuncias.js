@@ -20,8 +20,8 @@ const upload = multer({
 const transporter = nodemailer.createTransport({
     service: 'gmail', // Serviço de e-mail, pode usar Gmail, Outlook, etc.
     auth: {
-        user: process.env.EMAIL_USER, // Seu e-mail (configure no arquivo .env)
-        pass: process.env.EMAIL_PASS  // Sua senha (configure no arquivo .env)
+        user: process.env.EMAIL_USER, // Seu e-mail 
+        pass: process.env.EMAIL_PASS  // Sua senha
     }
 });
 

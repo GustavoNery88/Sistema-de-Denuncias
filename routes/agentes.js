@@ -1,10 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken'); // Adicione esta linha
 const router = express.Router();
 const Agente = require('../models/Agente');
 const Denuncia = require('../models/Denuncia');
+const nodemailer = require('nodemailer');
 const { ensureAuthenticatedJWT, ensureAdmin } = require('../middlewares/authMiddleware'); // Atualize para middleware JWT
+
 
 
 // Página de cadastro de agente
@@ -73,7 +76,7 @@ router.get('/novasDenuncias', ensureAuthenticatedJWT, async (req, res) => {
 router.get('/todasDenuncias', ensureAuthenticatedJWT, async (req, res) => {
     try {
         const denunciasTodas = await Denuncia.find();
-        res.render('agente/todasDenuncias', { denuncias: denunciasTodas});
+        res.render('agente/todasDenuncias', { denuncias: denunciasTodas });
     } catch (error) {
         console.error(error);
         req.flash('error', 'Erro ao buscar denúncias.');
@@ -282,16 +285,6 @@ router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, ensureAdmin, async (re
             return res.redirect(`/agente/usuarioEditar/${usuarioId}`);
         }
 
-        // Se uma nova senha for fornecida, aplique um hash e verifique o comprimento
-        if (senha) {
-            if (senha.length < 8) {
-                req.flash('error', 'A senha deve ter pelo menos 8 caracteres.');
-                return res.redirect(`/agente/usuarioEditar/${usuarioId}`);
-            }
-            const salt = await bcrypt.genSalt(10);
-            updates.senha = await bcrypt.hash(senha, salt);
-        }
-
         // Atualiza o usuário no banco de dados
         await Agente.findByIdAndUpdate(usuarioId, updates);
 
@@ -382,6 +375,98 @@ router.get('/logout', (req, res) => {
     req.flash('success', 'Saiu!');
     res.redirect('/agente/login');
 });
+
+
+// Exibir tela de recuperação de senha
+router.get('/enviar-codigo-verificacao', (req, res) => res.render('agente/enviarCodigoVerificacao'));
+
+// Rota para exibir a página de código de verificação
+router.get('/codigoVerificacao', (req, res) => {
+    res.render('agente/codigoVerificacao');
+});
+
+
+// Configuração do Nodemailer para envio de e-mails
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // Serviço de e-mail, pode usar Gmail, Outlook, etc.
+    auth: {
+        user: process.env.EMAIL_USER, // Seu e-mail
+        pass: process.env.EMAIL_PASS  // Sua senha 
+    }
+});
+
+// Enviar código de verificação para o e-mail
+router.post('/gerar-codigo-verificacao', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const agente = await Agente.findOne({ email });
+        if (!agente) {
+            req.flash('error', 'E-mail não encontrado!');
+            return res.redirect('/agente/enviarCodigoVerificacao');
+        }
+
+        // Gerar token de verificação
+        const token = crypto.randomBytes(3).toString('hex');
+        agente.resetToken = token;
+        agente.resetTokenExpiration = Date.now() + 3600000; // Expira em 1 hora
+        await agente.save();
+
+        // Enviar e-mail com o token
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Recuperação de Senha',
+            html: `
+          <p>Você solicitou a redefinição de senha.</p>
+          <p>Use o código abaixo para redefinir sua senha:</p>
+          <h3>${token}</h3>
+          <p>Este código expira em 1 hora.</p>
+        `,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        req.flash('success', 'E-mail enviado com o código de verificação.');
+        res.redirect('/agente/codigoVerificacao');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao enviar o e-mail.');
+        res.redirect('/agente/enviarCodigoVerificacao');
+    }
+});
+
+// Página para redefinir senha com o código
+router.post('/verificar-codigo', async (req, res) => {
+    const { email, token, novaSenha } = req.body;
+
+    try {
+        const agente = await Agente.findOne({
+            email,
+            resetToken: token,
+            resetTokenExpiration: { $gt: Date.now() }, // Verifica se o token ainda é válido
+        });
+
+        if (!agente) {
+            req.flash('error', 'Token inválido ou expirado.');
+            return res.redirect('/agente/codigoVerificacao');
+        }
+
+        // Atualiza a senha do agente
+        const salt = await bcrypt.genSalt(10);
+        agente.senha = await bcrypt.hash(novaSenha, salt);
+
+        await agente.save();
+
+        req.flash('success', 'Senha redefinida com sucesso!');
+        res.redirect('/agente/login');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Erro ao redefinir a senha.');
+        res.redirect('/agente/codigoVerificacao');
+    }
+});
+
 
 
 module.exports = router;

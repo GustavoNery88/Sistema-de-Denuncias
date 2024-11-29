@@ -6,6 +6,8 @@ const AgenteSchema = new mongoose.Schema({
     cpf: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     senha: { type: String, required: true },
+    resetToken: { type: String, default: null },
+    resetTokenExpiration: { type: Date, default: null },
     admin: {type: Boolean, default: false}
 });
 
