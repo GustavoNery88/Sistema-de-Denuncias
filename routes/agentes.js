@@ -51,7 +51,7 @@ router.post('/cadastrar', ensureAuthenticatedJWT, ensureAdmin, async (req, res) 
         await novoAgente.save(); // Salva o agente no banco de dados
 
         req.flash('success', 'Agente cadastrado com sucesso!');
-        res.redirect('/agente/cadastrar');
+        res.redirect('/agente/usuarios');
 
     } catch (error) {
         console.error(error);
@@ -261,7 +261,7 @@ router.get('/usuarioEditar/:id', ensureAuthenticatedJWT, ensureAdmin, async (req
 // Rota para processar a edição do usuário
 router.post('/usuarioEditar/:id', ensureAuthenticatedJWT, ensureAdmin, async (req, res) => {
     const usuarioId = req.params.id;
-    const { nome, cpf, email, senha } = req.body;
+    const { nome, cpf, email } = req.body;
     const cpfFormatado = cpf.replace(/\D/g, ''); // Formatar CPF
 
     try {
@@ -403,14 +403,20 @@ router.post('/gerar-codigo-verificacao', async (req, res) => {
         const agente = await Agente.findOne({ email });
         if (!agente) {
             req.flash('error', 'E-mail não encontrado!');
-            return res.redirect('/agente/enviarCodigoVerificacao');
+            return res.redirect('/agente/enviar-codigo-verificacao');
         }
 
         // Gerar token de verificação
         const token = crypto.randomBytes(3).toString('hex');
-        agente.resetToken = token;
-        agente.resetTokenExpiration = Date.now() + 3600000; // Expira em 1 hora
-        await agente.save();
+
+        // Atualizar somente os campos necessários
+        await Agente.updateOne(
+            { _id: agente._id },
+            {
+                resetToken: token,
+                resetTokenExpiration: Date.now() + 3600000, // Expira em 1 hora
+            }
+        );
 
         // Enviar e-mail com o token
         const mailOptions = {
@@ -418,11 +424,11 @@ router.post('/gerar-codigo-verificacao', async (req, res) => {
             to: email,
             subject: 'Recuperação de Senha',
             html: `
-          <p>Você solicitou a redefinição de senha.</p>
-          <p>Use o código abaixo para redefinir sua senha:</p>
-          <h3>${token}</h3>
-          <p>Este código expira em 1 hora.</p>
-        `,
+                <p>Você solicitou a redefinição de senha.</p>
+                <p>Use o código abaixo para redefinir sua senha:</p>
+                <h3>${token}</h3>
+                <p>Este código expira em 1 hora.</p>
+            `,
         };
 
         await transporter.sendMail(mailOptions);
@@ -432,7 +438,7 @@ router.post('/gerar-codigo-verificacao', async (req, res) => {
     } catch (error) {
         console.error(error);
         req.flash('error', 'Erro ao enviar o e-mail.');
-        res.redirect('/agente/enviarCodigoVerificacao');
+        res.redirect('/agente/enviar-codigo-verificacao');
     }
 });
 
@@ -441,23 +447,41 @@ router.post('/verificar-codigo', async (req, res) => {
     const { email, token, novaSenha } = req.body;
 
     try {
-        const agente = await Agente.findOne({
-            email,
-            resetToken: token,
-            resetTokenExpiration: { $gt: Date.now() }, // Verifica se o token ainda é válido
-        });
+        // Gera o hash da nova senha
+        const salt = await bcrypt.genSalt(10);
+        const novaSenhaCriptografada = await bcrypt.hash(novaSenha, salt);
 
+        // Verifica se o token é válido para o agente com o e-mail fornecido
+        const agente = await Agente.findOne({ email, resetToken: token });
+
+        // Se não encontrar o agente ou o token não corresponder, retorna erro
         if (!agente) {
-            req.flash('error', 'Token inválido ou expirado.');
+            req.flash('error', 'Token inválido para o agente.');
             return res.redirect('/agente/codigoVerificacao');
         }
 
-        // Atualiza a senha do agente
-        const salt = await bcrypt.genSalt(10);
-        agente.senha = await bcrypt.hash(novaSenha, salt);
+        // Verifica se o token expirou
+        else if (agente.resetTokenExpiration < Date.now()) {
+            req.flash('error', 'Token expirado.');
+            return res.redirect('/agente/codigoVerificacao');
+        }
 
-        await agente.save();
+        else if (novaSenha.length < 8) {
+            req.flash('error', 'A senha deve ter pelo menos 8 caracteres ou mais!');
+            return res.redirect('/agente/codigoVerificacao');
+        }
 
+        
+        await Agente.updateOne(
+            { _id: agente._id }, // Encontra o agente pelo _id (garante que estamos atualizando o agente correto)
+            {
+                senha: novaSenhaCriptografada, // Atualiza a senha do agente
+                resetToken: null,             // Remove o token
+                resetTokenExpiration: null    // Remove a validade do token
+            }
+        );
+
+        // Sucesso na redefinição de senha
         req.flash('success', 'Senha redefinida com sucesso!');
         res.redirect('/agente/login');
     } catch (error) {
