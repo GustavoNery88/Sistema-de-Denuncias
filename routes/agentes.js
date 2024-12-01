@@ -1,12 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken'); // Adicione esta linha
+const jwt = require('jsonwebtoken'); 
 const router = express.Router();
 const Agente = require('../models/Agente');
 const Denuncia = require('../models/Denuncia');
 const nodemailer = require('nodemailer');
-const { ensureAuthenticatedJWT, ensureAdmin } = require('../middlewares/authMiddleware'); // Atualize para middleware JWT
+const { ensureAuthenticatedJWT, ensureAdmin } = require('../middlewares/authMiddleware'); 
 
 
 

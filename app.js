@@ -5,6 +5,7 @@ const { create } = require('express-handlebars');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser'); // Adicione esta linha
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -50,10 +51,28 @@ app.use((req, res, next) => {
     next();
 });
 
-// Middleware para tornar o usuário disponível globalmente
-app.use((req, res, next) => { 
-    res.locals.user = null; // Não vamos usar sessão para usuário
-    res.locals.isAuthenticated = req.cookies.token !== undefined; // Verifica se o token está definido
+// Middleware para autenticação e variáveis globais
+app.use((req, res, next) => {
+    const token = req.cookies.token;
+
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            res.locals.user = decoded; // Usuário autenticado
+            res.locals.isAuthenticated = true; // Indica que está logado
+            res.locals.isAdmin = decoded.admin || false; // Verifica se é admin
+        } catch (err) {
+            console.error('Erro ao verificar token:', err.message);
+            res.locals.user = null;
+            res.locals.isAuthenticated = false;
+            res.locals.isAdmin = false;
+        }
+    } else {
+        res.locals.user = null;
+        res.locals.isAuthenticated = false;
+        res.locals.isAdmin = false;
+    }
+
     next();
 });
 
