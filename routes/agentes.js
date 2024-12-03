@@ -397,14 +397,16 @@ const transporter = nodemailer.createTransport({
 
 // Enviar código de verificação para o e-mail
 router.post('/gerar-codigo-verificacao', async (req, res) => {
-    const { email } = req.body;
+    const { email, cpf } = req.body;
 
     try {
-        const agente = await Agente.findOne({ email });
+        // Verificar agente
+        const agente = await Agente.findOne({ email, cpf });
         if (!agente) {
-            req.flash('error', 'E-mail não encontrado!');
+            req.flash('error', 'E-mail ou CPF não encontrado!');
             return res.redirect('/agente/enviar-codigo-verificacao');
         }
+
 
         // Gerar token de verificação
         const token = crypto.randomBytes(3).toString('hex');
