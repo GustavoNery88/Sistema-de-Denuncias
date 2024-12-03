@@ -51,30 +51,25 @@ app.use((req, res, next) => {
     next();
 });
 
-// Middleware para autenticação e variáveis globais
+// Middleware para tornar o usuário disponível globalmente
 app.use((req, res, next) => {
-    const token = req.cookies.token;
+    const token = req.cookies.token; // Token armazenado no cookie
+    res.locals.user = null;         // Valor padrão para o usuário
+    res.locals.isAuthenticated = false; // Valor padrão para autenticação
 
-    if (token) {
+    if (token) { // Verifica se o token existe
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            res.locals.user = decoded; // Usuário autenticado
-            res.locals.isAuthenticated = true; // Indica que está logado
-            res.locals.isAdmin = decoded.admin || false; // Verifica se é admin
+            // Decodifica o token usando a chave secreta
+            const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+            res.locals.isAuthenticated = true; // Define como autenticado
+            res.locals.user = decoded; // Passa as informações do token para `res.locals.user`
         } catch (err) {
-            console.error('Erro ao verificar token:', err.message);
-            res.locals.user = null;
-            res.locals.isAuthenticated = false;
-            res.locals.isAdmin = false;
+            console.error('Erro ao decodificar token:', err); // Captura erros de decodificação
         }
-    } else {
-        res.locals.user = null;
-        res.locals.isAuthenticated = false;
-        res.locals.isAdmin = false;
     }
-
-    next();
+    next(); // Passa para o próximo middleware ou rota
 });
+
 
 
 // Conectar ao MongoDB
