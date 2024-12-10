@@ -398,10 +398,11 @@ const transporter = nodemailer.createTransport({
 // Enviar código de verificação para o e-mail
 router.post('/gerar-codigo-verificacao', async (req, res) => {
     const { email, cpf } = req.body;
+    const cpfFormatado = cpf.replace(/\D/g, '');
 
     try {
-        // Verificar agente
-        const agente = await Agente.findOne({ email, cpf });
+        // Verifica se o CPF e e-mail é válido para o agente
+        const agente = await Agente.findOne({ email, cpf: cpfFormatado });
         if (!agente) {
             req.flash('error', 'E-mail ou CPF inválido para o agente!');
             return res.redirect('/agente/enviar-codigo-verificacao');
@@ -446,7 +447,8 @@ router.post('/gerar-codigo-verificacao', async (req, res) => {
 
 // Página para redefinir senha com o código
 router.post('/verificar-codigo', async (req, res) => {
-    const { email, token, novaSenha } = req.body;
+    const { cpf, token, novaSenha } = req.body;
+    const cpfFormatado = cpf.replace(/\D/g, '');
 
     try {
         // Gera o hash da nova senha
@@ -454,7 +456,7 @@ router.post('/verificar-codigo', async (req, res) => {
         const novaSenhaCriptografada = await bcrypt.hash(novaSenha, salt);
 
         // Verifica se o token é válido para o agente com o e-mail fornecido
-        const agente = await Agente.findOne({ email, resetToken: token });
+        const agente = await Agente.findOne({ cpf: cpfFormatado, resetToken: token });
 
         // Se não encontrar o agente ou o token não corresponder, retorna erro
         if (!agente) {

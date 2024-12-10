@@ -3,8 +3,9 @@
     <div class="card-body">
       <form action="/agente/verificar-codigo" method="POST">
         <div class="mb-3">
-          <label for="email" class="form-label">E-mail cadastrado</label>
-          <input type="email" name="email" class="form-control" required>
+          <label for="cpf">CPF</label>
+          <input maxlength="14" type="text" name="cpf" id="cpf" class="form-control" placeholder="000.000.000-00"
+            required>
         </div>
         <div class="mb-3">
           <label for="token" class="form-label">Código de verificação</label>
