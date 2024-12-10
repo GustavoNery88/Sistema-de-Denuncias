@@ -403,7 +403,7 @@ router.post('/gerar-codigo-verificacao', async (req, res) => {
         // Verificar agente
         const agente = await Agente.findOne({ email, cpf });
         if (!agente) {
-            req.flash('error', 'E-mail ou CPF não encontrado!');
+            req.flash('error', 'E-mail ou CPF inválido para o agente!');
             return res.redirect('/agente/enviar-codigo-verificacao');
         }
 
