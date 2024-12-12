@@ -55,6 +55,18 @@
             </div>
             {{/if}}
 
+            <div>
+                <label>Agente:</label>
+                {{#if agente}}
+
+                <p><b>{{agente.nome}}</b></p>
+
+                {{else}}
+                <p><b>Denúncia não atribuida</b>.</p>
+                {{/if}}
+
+            </div>
+
             {{else}}
             <p>Denúncia não encontrada.</p>
             {{/if}}

@@ -89,13 +89,16 @@ router.get('/visualizar/:id', ensureAuthenticatedJWT, async (req, res) => {
     const denunciaId = req.params.id;
 
     try {
+
         const denuncia = await Denuncia.findById(denunciaId);
+        const agente = await Agente.findById(denuncia.agenteAtribuido);
+
         if (!denuncia) {
             req.flash('error', 'Denúncia não encontrada.');
             return res.redirect('/agente/novasDenuncias');
         }
 
-        res.render('agente/detalhesDenuncia', { denuncia });
+        res.render('agente/detalhesDenuncia', { denuncia, agente });
     } catch (error) {
         console.error(error);
         req.flash('error', 'Erro ao visualizar a denúncia.');
@@ -121,7 +124,6 @@ router.get('/editarDenuncia/:id', ensureAuthenticatedJWT, async (req, res) => {
         res.redirect('/agente/novasDenuncias');
     }
 });
-
 
 
 // Rota para se atribuir da denúncia
