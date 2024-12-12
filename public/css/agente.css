@@ -91,13 +91,9 @@
 
 .truncated-text {
     white-space: nowrap;
-    /* Impede que o texto quebre em várias linhas */
     overflow: hidden;
-    /* Esconde o texto que ultrapassa o tamanho */
     text-overflow: ellipsis;
-    /* Adiciona "..." ao final do texto truncado */
     width: 200px;
-    /* Define a largura máxima do elemento */
 }
 
 

@@ -420,7 +420,6 @@ body {
 	padding: 15px;
 	text-align: center;
 	margin-top: auto;
-	/* Mantém o rodapé no final, mesmo quando o conteúdo é pequeno */
 }
 
 .footer p {
@@ -430,13 +429,11 @@ body {
 @keyframes drop-alert {
 	from {
 		top: -50px;
-		/* Inicialmente acima da tela */
 		opacity: 0;
 	}
 
 	to {
 		top: 0;
-		/* Finalmente na parte superior da tela */
 		opacity: 1;
 	}
 }
@@ -465,21 +462,20 @@ body {
 		border-radius: 6px;
 	}
 
-	/* Estiliza fundo-imagem para dispositivos menores */
 	.fundo-imagem {
 		height: 300px;
-		/* Altura menor para se ajustar em telas menores */
+		
 	}
 
 	.fundo-imagem-texto {
 		width: 90%;
-		/* Aumenta a largura para ocupar mais espaço na tela */
+		
 		margin-top: 50px;
 	}
 
 	.fundo-imagem-texto h1 {
 		font-size: 36px;
-		/* Fonte menor para se ajustar melhor */
+		
 	}
 
 	.secao-passos-texto {
@@ -498,7 +494,7 @@ body {
 		padding: 30px;
 	}
 
-	/* Alinha o conteúdo da seção de contato para caber melhor em telas pequenas */
+	
 	.container-secao-contato i {
 		font-size: 16px;
 	}
